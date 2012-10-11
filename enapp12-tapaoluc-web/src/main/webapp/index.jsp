@@ -5,6 +5,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <!--<style type="text/css" href="bootstrap/css/bootsrap-min.css" />
+        <script type="text/javascript" href="bootstrap/js/bootstrap.min.js" />-->
+        
         <title>JSP Page</title>
     </head>
     <body>
