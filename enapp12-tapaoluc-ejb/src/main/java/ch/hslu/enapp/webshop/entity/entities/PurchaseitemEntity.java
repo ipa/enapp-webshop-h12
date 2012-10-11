@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Purchaseitem.findByUnitprice", query = "SELECT p FROM Purchaseitem p WHERE p.unitprice = :unitprice"),
     @NamedQuery(name = "Purchaseitem.findByLineamount", query = "SELECT p FROM Purchaseitem p WHERE p.lineamount = :lineamount"),
     @NamedQuery(name = "Purchaseitem.findByDescription", query = "SELECT p FROM Purchaseitem p WHERE p.description = :description")})
-public class Purchaseitem implements Serializable {
+public class PurchaseitemEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,15 +51,15 @@ public class Purchaseitem implements Serializable {
     private String description;
     @JoinColumn(name = "productid", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product productid;
+    private ProductEntity productid;
     @JoinColumn(name = "purchaseid", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Purchase purchaseid;
+    private PurchaseEntity purchaseid;
 
-    public Purchaseitem() {
+    public PurchaseitemEntity() {
     }
 
-    public Purchaseitem(Integer id) {
+    public PurchaseitemEntity(Integer id) {
         this.id = id;
     }
 
@@ -103,19 +103,19 @@ public class Purchaseitem implements Serializable {
         this.description = description;
     }
 
-    public Product getProductid() {
+    public ProductEntity getProductid() {
         return productid;
     }
 
-    public void setProductid(Product productid) {
+    public void setProductid(ProductEntity productid) {
         this.productid = productid;
     }
 
-    public Purchase getPurchaseid() {
+    public PurchaseEntity getPurchaseid() {
         return purchaseid;
     }
 
-    public void setPurchaseid(Purchase purchaseid) {
+    public void setPurchaseid(PurchaseEntity purchaseid) {
         this.purchaseid = purchaseid;
     }
 
@@ -129,10 +129,10 @@ public class Purchaseitem implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Purchaseitem)) {
+        if (!(object instanceof PurchaseitemEntity)) {
             return false;
         }
-        Purchaseitem other = (Purchaseitem) object;
+        PurchaseitemEntity other = (PurchaseitemEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

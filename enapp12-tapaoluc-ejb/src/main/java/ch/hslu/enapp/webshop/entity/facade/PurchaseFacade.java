@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ch.hslu.enapp.webshop.entity;
+package ch.hslu.enapp.webshop.entity.facade;
 
-import ch.hslu.enapp.webshop.entity.entities.Product;
+import ch.hslu.enapp.webshop.entity.entities.PurchaseEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Admin
  */
 @Stateless
-public class ProductFacade extends AbstractFacade<Product> implements ProductFacadeLocal {
+public class PurchaseFacade extends AbstractFacade<PurchaseEntity> implements PurchaseFacadeLocal {
     @PersistenceContext(unitName = "ch.hslu.enapp_enapp12-tapaoluc-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class ProductFacade extends AbstractFacade<Product> implements ProductFac
         return em;
     }
 
-    public ProductFacade() {
-        super(Product.class);
+    public PurchaseFacade() {
+        super(PurchaseEntity.class);
     }
     
 }
