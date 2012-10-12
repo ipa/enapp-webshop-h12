@@ -5,6 +5,7 @@
 package ch.hslu.enapp.webshop.dataaccess;
 
 import ch.hslu.enapp.webshop.entity.entities.PurchaseEntity;
+import ch.hslu.enapp.webshop.entity.entities.PurchaseitemEntity;
 import ch.hslu.enapp.webshop.entity.facade.PurchaseFacadeLocal;
 import java.util.Date;
 import java.util.LinkedList;
@@ -50,7 +51,11 @@ public class PurchaseDAOTest {
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 PurchaseEntity pe = (PurchaseEntity)invocation.getArguments()[0];
                 assertTrue(pe.getCustomerid().getId() == 123);
-                //assertFalse(pe.getPurchaseitemCollection().isEmpty());
+                assertFalse(pe.getPurchaseitemCollection().isEmpty());
+                assertTrue(pe.getStatus().equals("New"));
+                for(PurchaseitemEntity e : pe.getPurchaseitemCollection()){
+                    assertTrue(e.getProductid().getId() == 100);
+                }
                 return null;
             }
         }).when(pfl).create(any(new PurchaseEntity().getClass()));
@@ -81,6 +86,8 @@ public class PurchaseDAOTest {
         item.setQuantity(2L);
         item.setUnitprice(123L);
         item.setProductid(100);
+        pis.add(item);
+        purchase.setPurchaseItems(pis);
         
         // will throw exception when not working
         dao.savePurchase(purchase);

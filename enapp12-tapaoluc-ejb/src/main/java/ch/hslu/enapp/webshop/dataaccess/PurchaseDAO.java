@@ -5,9 +5,14 @@
 package ch.hslu.enapp.webshop.dataaccess;
 
 import ch.hslu.enapp.webshop.entity.entities.CustomerEntity;
+import ch.hslu.enapp.webshop.entity.entities.ProductEntity;
 import ch.hslu.enapp.webshop.entity.entities.PurchaseEntity;
+import ch.hslu.enapp.webshop.entity.entities.PurchaseitemEntity;
 import ch.hslu.enapp.webshop.entity.facade.CustomerFacade;
 import ch.hslu.enapp.webshop.entity.facade.PurchaseFacadeLocal;
+import ch.hslu.enapp.webshop.entity.facade.PurchaseitemFacadeLocal;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.modelmapper.ModelMapper;
@@ -25,6 +30,8 @@ public class PurchaseDAO implements PurchaseDAOLocal {
     private ProductDAOLocal pdl;
     @Inject
     private CustomerDAOLocal cdl;
+    @Inject 
+    private Product pil;
     
     @Override
     public void savePurchase(final Purchase purchase) {
@@ -32,8 +39,19 @@ public class PurchaseDAO implements PurchaseDAOLocal {
         ModelMapper mapper = new ModelMapper();
         entity = mapper.map(purchase, PurchaseEntity.class);
         
+        // TODO: remove CustomerEntity Depenency
         CustomerEntity ce = mapper.map(cdl.getCustomerById(purchase.getCustomer().getId()), CustomerEntity.class);
         entity.setCustomerid(ce);
+        
+        List<PurchaseitemEntity> list = new LinkedList<PurchaseitemEntity>();
+        for(PurchaseItem pi : purchase.getPurchaseItems()){
+            PurchaseitemEntity e = mapper.map(pi, PurchaseitemEntity.class);
+            ProductEntity pe = new ProductEntity(pi.getProductid());
+            e.setProductid(pe);
+            list.add(e);
+        }
+        
+        entity.setPurchaseitemCollection(list);
         
         this.pfl.create(entity);
     }

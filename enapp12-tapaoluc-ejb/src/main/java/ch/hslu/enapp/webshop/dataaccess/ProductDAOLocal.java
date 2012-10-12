@@ -15,5 +15,7 @@ import javax.ejb.Local;
 public interface ProductDAOLocal {
 
     public List<Product> getProducts();
+
+    public Product getProductById(Integer productid);
     
 }

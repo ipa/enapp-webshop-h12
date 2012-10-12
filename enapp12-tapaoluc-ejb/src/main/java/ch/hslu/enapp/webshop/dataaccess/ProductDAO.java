@@ -35,6 +35,17 @@ public class ProductDAO implements ProductDAOLocal {
         return products;
     }
     
+    @Override
+    public Product getProductById(Integer productid) {
+        List<Product> products = this.getProducts();
+        for(Product p : products){
+            if(p.getId() == productid){
+                return p;
+            }
+        }
+        return null;
+    }
+    
     /** Just for UnitTests **/
     void setCustomerFacade(final ProductFacadeLocal facade){
         this.pf = facade;
