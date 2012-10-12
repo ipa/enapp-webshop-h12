@@ -5,6 +5,7 @@
 package ch.hslu.enapp.webshop.lib.boundary;
 
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
+import ch.hslu.enapp.webshop.lib.model.BasketContent;
 import javax.ejb.Local;
 
 /**
@@ -19,5 +20,6 @@ public interface BasketManagerLocal {
     void addProduct(int productId, int amount);
 
     int getNumberOfProducts();
-    
+
+    public BasketContent getBasketContent();
 }

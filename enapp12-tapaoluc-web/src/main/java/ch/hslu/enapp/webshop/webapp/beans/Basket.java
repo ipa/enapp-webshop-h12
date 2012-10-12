@@ -5,9 +5,12 @@
 package ch.hslu.enapp.webshop.webapp.beans;
 
 import ch.hslu.enapp.webshop.lib.boundary.BasketManagerLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Product;
+import ch.hslu.enapp.webshop.lib.model.BasketContent;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -30,14 +33,29 @@ public class Basket implements Serializable {
     }
     
     public void addProduct(){
-        Map<String, String> params = 
-                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String productid = params.get("product");
+        String productid = getParameter();
         int id = Integer.parseInt(productid);
         bml.addProduct(id, 1);
     }
     
+    public void removeProduct(){
+        String productid = getParameter();
+        int id = Integer.parseInt(productid);
+        bml.addProduct(id, -1);
+    }
+    
     public int numberOfProducts(){
         return this.bml.getNumberOfProducts();
+    }
+    
+    public BasketContent basketContent(){
+        return this.bml.getBasketContent();
+    }
+
+    private String getParameter() {
+        Map<String, String> params = 
+                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String productid = params.get("productid");
+        return productid;
     }
 }

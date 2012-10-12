@@ -8,14 +8,14 @@ import ch.hslu.enapp.webshop.lib.boundary.BasketManagerLocal;
 import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.lib.model.BasketContent;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.inject.Inject;
 
 /**
  *
  * @author Admin
  */
-@Stateless
+@Stateful
 public class BasketManager implements BasketManagerLocal {
     
     @Inject
@@ -43,5 +43,8 @@ public class BasketManager implements BasketManagerLocal {
         return this.content.count();
     }
     
-    
+    @Override
+    public BasketContent getBasketContent(){
+        return this.content;
+    }
 }

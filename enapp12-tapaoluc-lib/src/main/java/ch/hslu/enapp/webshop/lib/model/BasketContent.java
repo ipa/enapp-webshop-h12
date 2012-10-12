@@ -24,6 +24,10 @@ public class BasketContent {
         items.add(item);
     }
     
+    public List<BasketContentItem> getItems(){
+        return this.items;
+    }
+    
     public int count(){
         return this.items.size();
     }
