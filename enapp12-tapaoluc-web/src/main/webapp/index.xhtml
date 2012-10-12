@@ -27,15 +27,15 @@
             <tbody>
                 <c:forEach items="#{basket.basketContent().items}" var="item">
                     <tr>
-                    <td>#{item.product}</td>
-                    <td>#{item.amount}</td>
-                    <td>
-                        <h:form>
-                            <h:commandButton action="#{basket.removeProduct()}" value="Add">
-                                <f:param name="productid" value="#{item.product.id}" />
-                            </h:commandButton>
-                        </h:form>
-                    </td>
+                        <td>#{item.product.name}</td>
+                        <td>#{item.amount}</td>
+                        <td>
+                            <h:form>
+                                <h:commandButton action="#{basket.removeProduct()}" value="Remove one">
+                                    <f:param name="productid" value="#{item.product.id}" />
+                                </h:commandButton>
+                            </h:form>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -57,7 +57,7 @@
                         <td>#{product.unitprice}</td>
                         <td>
                             <h:form>
-                                <h:commandButton action="#{basket.addProduct()}" value="Add">
+                                <h:commandButton action="#{basket.addProduct()}" value="Add one">
                                     <f:param name="productid" value="#{product.id}" />
                                 </h:commandButton>
                             </h:form>
