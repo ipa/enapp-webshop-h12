@@ -1,0 +1,42 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ch.hslu.enapp.webshop.webapp.beans;
+
+import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Product;
+import java.util.LinkedList;
+import java.util.List;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ApplicationScoped;
+import javax.inject.Named;
+import javax.inject.Inject;
+
+/**
+ *
+ * @author Admin
+ */
+@Named(value = "productcatalog")
+@ApplicationScoped
+public class Productcatalog {
+
+    @Inject
+    private ProductManagerLocal pml;
+    
+    private List<Product> allProducts;
+    
+    /**
+     * Creates a new instance of Productcatalog
+     */
+    public Productcatalog() {
+        this.allProducts = new LinkedList<Product>();
+    }
+    
+    public List<Product> getAllProducts(){
+        this.allProducts.clear();
+        this.allProducts.addAll(pml.getAllProducts());
+        
+        return this.allProducts;
+    }
+}

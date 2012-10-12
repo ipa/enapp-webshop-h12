@@ -8,12 +8,17 @@ import ch.hslu.enapp.webshop.entity.entities.CustomerEntity;
 import ch.hslu.enapp.webshop.entity.entities.ProductEntity;
 import ch.hslu.enapp.webshop.entity.entities.PurchaseEntity;
 import ch.hslu.enapp.webshop.entity.entities.PurchaseitemEntity;
-import ch.hslu.enapp.webshop.entity.facade.CustomerFacade;
 import ch.hslu.enapp.webshop.entity.facade.PurchaseFacadeLocal;
-import ch.hslu.enapp.webshop.entity.facade.PurchaseitemFacadeLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Product;
+import ch.hslu.enapp.webshop.lib.dataaccess.ProductDAOLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Purchase;
+import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseDAOLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseItem;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import org.modelmapper.ModelMapper;
 
@@ -22,6 +27,7 @@ import org.modelmapper.ModelMapper;
  * @author Admin
  */
 @Stateless
+@Default
 public class PurchaseDAO implements PurchaseDAOLocal {
 
     @Inject
@@ -30,8 +36,6 @@ public class PurchaseDAO implements PurchaseDAOLocal {
     private ProductDAOLocal pdl;
     @Inject
     private CustomerDAOLocal cdl;
-    @Inject 
-    private Product pil;
     
     @Override
     public void savePurchase(final Purchase purchase) {
@@ -48,6 +52,7 @@ public class PurchaseDAO implements PurchaseDAOLocal {
             PurchaseitemEntity e = mapper.map(pi, PurchaseitemEntity.class);
             ProductEntity pe = new ProductEntity(pi.getProductid());
             e.setProductid(pe);
+            e.setPurchaseid(entity);
             list.add(e);
         }
         

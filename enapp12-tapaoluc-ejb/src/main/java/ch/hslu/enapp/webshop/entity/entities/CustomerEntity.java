@@ -30,13 +30,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "customer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
-    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
-    @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM Customer c WHERE c.username = :username"),
-    @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
-    @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name"),
-    @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address"),
-    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM CustomerEntity c"),
+    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM CustomerEntity c WHERE c.id = :id"),
+    @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM CustomerEntity c WHERE c.username = :username"),
+    @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM CustomerEntity c WHERE c.password = :password"),
+    @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM CustomerEntity c WHERE c.name = :name"),
+    @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM CustomerEntity c WHERE c.address = :address"),
+    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM CustomerEntity c WHERE c.email = :email")})
 public class CustomerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

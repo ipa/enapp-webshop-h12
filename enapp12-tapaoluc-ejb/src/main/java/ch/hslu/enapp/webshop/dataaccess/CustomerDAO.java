@@ -4,11 +4,14 @@
  */
 package ch.hslu.enapp.webshop.dataaccess;
 
+import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
+import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
 import ch.hslu.enapp.webshop.entity.entities.CustomerEntity;
 import ch.hslu.enapp.webshop.entity.facade.CustomerFacadeLocal;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import org.modelmapper.ModelMapper;
 
@@ -17,6 +20,7 @@ import org.modelmapper.ModelMapper;
  * @author Admin
  */
 @Stateless
+@Default
 public class CustomerDAO implements CustomerDAOLocal {
     @Inject
     private CustomerFacadeLocal cf;
@@ -33,6 +37,7 @@ public class CustomerDAO implements CustomerDAOLocal {
         return list;
     }
     
+    @Override
     public Customer getCustomerById(int id){
         List<Customer> list = this.getCustomers();
         for(Customer c : list){

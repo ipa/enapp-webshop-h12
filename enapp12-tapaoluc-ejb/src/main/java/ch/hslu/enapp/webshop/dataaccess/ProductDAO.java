@@ -4,12 +4,14 @@
  */
 package ch.hslu.enapp.webshop.dataaccess;
 
+import ch.hslu.enapp.webshop.lib.dataaccess.ProductDAOLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.entity.entities.ProductEntity;
 import ch.hslu.enapp.webshop.entity.facade.ProductFacadeLocal;
-import com.sun.media.sound.ModelMappedInstrument;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import org.modelmapper.ModelMapper;
 
@@ -18,6 +20,7 @@ import org.modelmapper.ModelMapper;
  * @author Admin
  */
 @Stateless
+@Default
 public class ProductDAO implements ProductDAOLocal {
 
     @Inject

@@ -6,6 +6,7 @@ package ch.hslu.enapp.webshop.entity.facade;
 
 import ch.hslu.enapp.webshop.entity.entities.PurchaseitemEntity;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,6 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Admin
  */
 @Stateless
+@Default
 public class PurchaseitemFacade extends AbstractFacade<PurchaseitemEntity> implements PurchaseitemFacadeLocal {
     @PersistenceContext(unitName = "ch.hslu.enapp_enapp12-tapaoluc-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;

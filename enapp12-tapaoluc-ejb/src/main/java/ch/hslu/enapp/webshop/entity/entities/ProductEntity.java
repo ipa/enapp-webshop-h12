@@ -30,12 +30,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "product")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
-    @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
-    @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description"),
-    @NamedQuery(name = "Product.findByMediapath", query = "SELECT p FROM Product p WHERE p.mediapath = :mediapath"),
-    @NamedQuery(name = "Product.findByUnitprice", query = "SELECT p FROM Product p WHERE p.unitprice = :unitprice")})
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM ProductEntity p"),
+    @NamedQuery(name = "Product.findById", query = "SELECT p FROM ProductEntity p WHERE p.id = :id"),
+    @NamedQuery(name = "Product.findByName", query = "SELECT p FROM ProductEntity p WHERE p.name = :name"),
+    @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM ProductEntity p WHERE p.description = :description"),
+    @NamedQuery(name = "Product.findByMediapath", query = "SELECT p FROM ProductEntity p WHERE p.mediapath = :mediapath"),
+    @NamedQuery(name = "Product.findByUnitprice", query = "SELECT p FROM ProductEntity p WHERE p.unitprice = :unitprice")})
 public class ProductEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

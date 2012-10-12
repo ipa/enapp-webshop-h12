@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ch.hslu.enapp.webshop.dataaccess;
+package ch.hslu.enapp.webshop.lib.dataaccess;
 
+import ch.hslu.enapp.webshop.lib.dataaccess.Purchase;
 import javax.ejb.Local;
 
 /**
@@ -13,6 +14,6 @@ import javax.ejb.Local;
 @Local
 public interface PurchaseDAOLocal {
 
-    void savePurchase(final Purchase purchase);
+    public void savePurchase(final Purchase purchase);
     
 }

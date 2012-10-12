@@ -34,10 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "purchase")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Purchase.findAll", query = "SELECT p FROM Purchase p"),
-    @NamedQuery(name = "Purchase.findById", query = "SELECT p FROM Purchase p WHERE p.id = :id"),
-    @NamedQuery(name = "Purchase.findByDatetime", query = "SELECT p FROM Purchase p WHERE p.datetime = :datetime"),
-    @NamedQuery(name = "Purchase.findByStatus", query = "SELECT p FROM Purchase p WHERE p.status = :status")})
+    @NamedQuery(name = "Purchase.findAll", query = "SELECT p FROM PurchaseEntity p"),
+    @NamedQuery(name = "Purchase.findById", query = "SELECT p FROM PurchaseEntity p WHERE p.id = :id"),
+    @NamedQuery(name = "Purchase.findByDatetime", query = "SELECT p FROM PurchaseEntity p WHERE p.datetime = :datetime"),
+    @NamedQuery(name = "Purchase.findByStatus", query = "SELECT p FROM PurchaseEntity p WHERE p.status = :status")})
 public class PurchaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

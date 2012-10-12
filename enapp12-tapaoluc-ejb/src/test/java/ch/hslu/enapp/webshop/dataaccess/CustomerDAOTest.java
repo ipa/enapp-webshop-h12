@@ -4,6 +4,7 @@
  */
 package ch.hslu.enapp.webshop.dataaccess;
 
+import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
 import ch.hslu.enapp.webshop.entity.entities.CustomerEntity;
 import ch.hslu.enapp.webshop.entity.facade.CustomerFacadeLocal;
 import java.util.LinkedList;

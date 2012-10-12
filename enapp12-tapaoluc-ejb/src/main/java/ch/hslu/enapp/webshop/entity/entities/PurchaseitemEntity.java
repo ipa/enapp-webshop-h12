@@ -27,12 +27,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseitem")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Purchaseitem.findAll", query = "SELECT p FROM Purchaseitem p"),
-    @NamedQuery(name = "Purchaseitem.findById", query = "SELECT p FROM Purchaseitem p WHERE p.id = :id"),
-    @NamedQuery(name = "Purchaseitem.findByQuantity", query = "SELECT p FROM Purchaseitem p WHERE p.quantity = :quantity"),
-    @NamedQuery(name = "Purchaseitem.findByUnitprice", query = "SELECT p FROM Purchaseitem p WHERE p.unitprice = :unitprice"),
-    @NamedQuery(name = "Purchaseitem.findByLineamount", query = "SELECT p FROM Purchaseitem p WHERE p.lineamount = :lineamount"),
-    @NamedQuery(name = "Purchaseitem.findByDescription", query = "SELECT p FROM Purchaseitem p WHERE p.description = :description")})
+    @NamedQuery(name = "Purchaseitem.findAll", query = "SELECT p FROM PurchaseitemEntity p"),
+    @NamedQuery(name = "Purchaseitem.findById", query = "SELECT p FROM PurchaseitemEntity p WHERE p.id = :id"),
+    @NamedQuery(name = "Purchaseitem.findByQuantity", query = "SELECT p FROM PurchaseitemEntity p WHERE p.quantity = :quantity"),
+    @NamedQuery(name = "Purchaseitem.findByUnitprice", query = "SELECT p FROM PurchaseitemEntity p WHERE p.unitprice = :unitprice"),
+    @NamedQuery(name = "Purchaseitem.findByLineamount", query = "SELECT p FROM PurchaseitemEntity p WHERE p.lineamount = :lineamount"),
+    @NamedQuery(name = "Purchaseitem.findByDescription", query = "SELECT p FROM PurchaseitemEntity p WHERE p.description = :description")})
 public class PurchaseitemEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

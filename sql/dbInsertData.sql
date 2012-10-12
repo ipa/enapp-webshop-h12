@@ -35,4 +35,4 @@ VALUES(1,1,3,1,4,'some music...');
 INSERT INTO purchaseitem(purchaseid,productid,quantity,unitprice,lineamount,description)
 VALUES(1,3,3,1,4,'some music...');
 
-ROLLBACK
+COMMIT

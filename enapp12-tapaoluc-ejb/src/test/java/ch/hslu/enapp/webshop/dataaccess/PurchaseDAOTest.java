@@ -4,6 +4,12 @@
  */
 package ch.hslu.enapp.webshop.dataaccess;
 
+import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseItem;
+import ch.hslu.enapp.webshop.lib.dataaccess.Purchase;
+import ch.hslu.enapp.webshop.lib.dataaccess.ProductDAOLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Product;
+import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
+import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
 import ch.hslu.enapp.webshop.entity.entities.PurchaseEntity;
 import ch.hslu.enapp.webshop.entity.entities.PurchaseitemEntity;
 import ch.hslu.enapp.webshop.entity.facade.PurchaseFacadeLocal;
@@ -55,6 +61,8 @@ public class PurchaseDAOTest {
                 assertTrue(pe.getStatus().equals("New"));
                 for(PurchaseitemEntity e : pe.getPurchaseitemCollection()){
                     assertTrue(e.getProductid().getId() == 100);
+                    // on each purchaseitem the purchase id has to be set
+                    assertTrue(e.getPurchaseid().getId() == pe.getId());
                 }
                 return null;
             }
