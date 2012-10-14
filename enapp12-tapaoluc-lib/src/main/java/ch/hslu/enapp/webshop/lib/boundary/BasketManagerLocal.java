@@ -15,11 +15,34 @@ import javax.ejb.Local;
 @Local
 public interface BasketManagerLocal {
 
-    void addProduct(final Product product, int amaount);
+    /**
+     *
+     * @param product
+     * @param amaount
+     */
+    public void addProduct(final Product product, int amaount);
 
-    void addProduct(int productId, int amount);
+    /**
+     *
+     * @param productId
+     * @param amount
+     */
+    public void addProduct(int productId, int amount);
 
-    int getNumberOfProducts();
+    /**
+     *
+     * @return
+     */
+    public int getNumberOfProducts();
 
+    /**
+     *
+     * @return
+     */
     public BasketContent getBasketContent();
+    
+    /**
+     *
+     */
+    public void checkout();
 }

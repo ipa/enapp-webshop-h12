@@ -12,7 +12,7 @@ import ch.hslu.enapp.webshop.lib.dataaccess.Product;
  */
 public class BasketContentItem implements Comparable<BasketContentItem>{
     private Product product;
-    private int amount;
+    private long amount;
 
     public BasketContentItem(Product product, int amount) {
         this.product = product;
@@ -27,11 +27,11 @@ public class BasketContentItem implements Comparable<BasketContentItem>{
         this.product = product;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 
