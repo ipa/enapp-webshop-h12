@@ -7,65 +7,11 @@
 
     <h:body>
         <ui:composition template="/template/template.xhtml">
-
             <ui:define name="content">
-                <h:form>
-                    <h:commandButton action="#{index.addPurchase()}" value="Add Purchase"/>
-                </h:form>
-
-                <h2>Basket</h2>
-                <h3>
-                    # of Products: #{basket.numberOfProducts()}
-                </h3>
-
-                <table>
-                    <thead>
-                        <th>Product</th>
-                        <th>Amount</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="#{basket.basketContent().items}" var="item">
-                            <tr>
-                                <td>#{item.product.name}</td>
-                                <td>#{item.amount}</td>
-                                <td>
-                                    <h:form>
-                                        <h:commandButton action="#{basket.removeProduct()}" value="Remove one">
-                                            <f:param name="productid" value="#{item.product.id}" />
-                                        </h:commandButton>
-                                    </h:form>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
-                <h2>Products</h2>
-                <table>
-                    <thead>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="#{productcatalog.allProducts}" var="product">
-                            <tr>
-                                <td>#{product.name}</td>
-                                <td>#{product.description}</td>
-                                <td>#{product.unitprice}</td>
-                                <td>
-                                    <h:form>
-                                        <h:commandButton action="#{basket.addProduct()}" value="Add one">
-                                            <f:param name="productid" value="#{product.id}" />
-                                        </h:commandButton>
-                                    </h:form>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                <div class="hero-unit">
+                    <h1>Welcome to ENAPP Webshop</h1>
+                    <p>lorem ipsum dolor...</p>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

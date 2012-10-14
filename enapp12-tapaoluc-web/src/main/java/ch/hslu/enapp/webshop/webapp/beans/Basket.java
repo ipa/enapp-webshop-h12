@@ -52,6 +52,14 @@ public class Basket implements Serializable {
         return this.bml.getBasketContent();
     }
 
+    public void checkout(){
+        this.bml.checkout();
+    }
+    
+    public void clear(){
+        
+    }
+    
     private String getParameter() {
         Map<String, String> params = 
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();

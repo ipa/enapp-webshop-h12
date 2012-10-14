@@ -47,3 +47,11 @@ foreign key (`purchaseid`)
 foreign key (`productid`)
 	references `product` (`id`)
 );
+
+-- GROUPS
+CREATE TABLE customergroups (
+	id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	username VARCHAR(15) NOT NULL,
+	groupname VARCHAR(15) NOT NULL,
+	PRIMARY KEY (`id`)
+);

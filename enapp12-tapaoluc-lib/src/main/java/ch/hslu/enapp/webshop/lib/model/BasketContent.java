@@ -5,7 +5,6 @@
 package ch.hslu.enapp.webshop.lib.model;
 
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,6 +24,9 @@ public class BasketContent {
         if(this.items.contains(item)){
             item = this.items.get(this.items.indexOf(item));
             item.setAmount(item.getAmount() + amount);
+            if(item.getAmount() <= 0){
+                this.items.remove(item);
+            }
         } else {
             items.add(item);
         }
