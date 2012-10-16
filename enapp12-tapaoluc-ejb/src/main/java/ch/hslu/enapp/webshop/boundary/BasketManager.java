@@ -4,10 +4,10 @@
  */
 package ch.hslu.enapp.webshop.boundary;
 
-import ch.hslu.enapp.webshop.dataaccess.PurchaseDAO;
 import ch.hslu.enapp.webshop.lib.boundary.BasketManagerLocal;
 import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
 import ch.hslu.enapp.webshop.lib.boundary.PurchaseManagerLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.lib.dataaccess.Purchase;
 import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseItem;
@@ -26,18 +26,19 @@ import javax.inject.Inject;
  */
 @Stateful
 public class BasketManager implements BasketManagerLocal {
-    
+
+    @Inject
+    private CustomerDAOLocal customerDAO;
     @Inject
     private ProductManagerLocal pml;
     @Inject
     private PurchaseManagerLocal purchaseManager;
-    
     private BasketContent content;
-    
-    public BasketManager(){
+
+    public BasketManager() {
         this.content = new BasketContent();
     }
-    
+
     @Override
     public void addProduct(final Product product, int amaount) {
         this.content.insertProduct(product, amaount);
@@ -53,29 +54,33 @@ public class BasketManager implements BasketManagerLocal {
     public int getNumberOfProducts() {
         return this.content.count();
     }
-    
+
     @Override
-    public BasketContent getBasketContent(){
+    public BasketContent getBasketContent() {
         return this.content;
     }
-    
+
     @Override
-    public void checkout(){
+    public void checkout() {
         Purchase purchase = convertBasketToPurchase();
-        
+
         // save purchase
-        purchaseManager.savePurchase(purchase);
+        try {
+            purchaseManager.savePurchase(purchase);
+            this.content = new BasketContent();
+        } catch (Exception ex) {
+        }
     }
 
     private Purchase convertBasketToPurchase() {
         Purchase purchase = new Purchase();
-        // TODO: set customer
-        purchase.setCustomer(null);
+
+        purchase.setCustomer(customerDAO.getCustomerById(1));
         purchase.setDatetime(new Date());
         purchase.setStatus(PurchaseStatus.NEW);
         // set the items
         List<PurchaseItem> pItems = new LinkedList<PurchaseItem>();
-        for(BasketContentItem item : this.content.getItems()){
+        for (BasketContentItem item : this.content.getItems()) {
             PurchaseItem pItem = new PurchaseItem();
             pItem.setDescription(item.getProduct().getDescription());
             pItem.setLineamount(1L);

@@ -19,14 +19,14 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>/index.xhtml</welcome-file>
     </welcome-file-list>
     <security-constraint>
-        <display-name>securepages</display-name>
+        <display-name>checkout</display-name>
         <web-resource-collection>
             <web-resource-name>secure</web-resource-name>
-            <description/>
-            <url-pattern>*.xhtml</url-pattern>
+            <description>only for customers</description>
+            <url-pattern>/secure/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
@@ -34,8 +34,12 @@
         </auth-constraint>
     </security-constraint>
     <login-config>
-        <auth-method>BASIC</auth-method>
+        <auth-method>FORM</auth-method>
         <realm-name>enappwebshoprealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
     </login-config>
     <security-role>
         <description/>

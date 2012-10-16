@@ -5,14 +5,11 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core">
-
+ 
     <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                    template="./template/template.xhtml">
+                    template="../template/template.xhtml">
         <ui:define name="content">
-            <h2>Basket</h2>
-            <h3>
-                # of Products: #{basket.numberOfProducts()}
-            </h3>
+            <h2>Checkout</h2>
 
             <table class="table table-hover table-condensed">
                 <thead>
@@ -25,24 +22,14 @@
                         <tr>
                             <td>#{item.product.name}</td>
                             <td>#{item.amount}</td>
-                            <td>
-                                <h:form>
-                                    <h:commandButton type="button" class="btn"  action="#{basket.removeProduct()}" value="-">
-                                        <f:param name="productid" value="#{item.product.id}" />
-                                    </h:commandButton>
-                                </h:form>
-                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
             
             <h:form>
-                <h:commandButton class="btn btn-primary"  action="secure/checkout.xhtml?faces-redirect=true" value="Checkout" />
-                <span> </span>
-                <h:commandButton class="btn btn-danger"  action="#{basket.clear()}" value="Clear"
-                                 onclick="if (!confirm('are you sure')) return false"/>
+                <h:commandButton class="btn btn-primary"  action="#{basket.checkout()}" value="Checkout" />
             </h:form>
         </ui:define>
     </ui:composition>
-</html>
+</html> 

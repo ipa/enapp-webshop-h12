@@ -5,12 +5,10 @@
 package ch.hslu.enapp.webshop.webapp.beans;
 
 import ch.hslu.enapp.webshop.lib.boundary.BasketManagerLocal;
-import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.lib.model.BasketContent;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -25,6 +23,9 @@ public class Basket implements Serializable {
 
     @Inject
     private BasketManagerLocal bml;
+    
+    @Inject 
+    private UserSession session;
     
     /**
      * Creates a new instance of Basket

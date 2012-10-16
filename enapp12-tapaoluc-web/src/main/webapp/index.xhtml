@@ -12,6 +12,14 @@
                     <h1>Welcome to ENAPP Webshop</h1>
                     <p>lorem ipsum dolor...</p>
                 </div>
+                
+                <h:form class="navbar-form pull-right" method="POST" name="loginForm">
+                    <input class="input-small span2" value="#{usersession.iusr}" type="text" id="j_username" placeholder="Username"  />
+                    <input class="input-small span2" value="#{usersession.ipwd}" type="password" id="j_password" placeholder="Password" />
+                    <h:commandButton type="submit" class="btn" action="#{usersession.login()}" value="Login">
+                        <!--<f:ajax render="@form" execute="@form"/>-->
+                    </h:commandButton>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>
