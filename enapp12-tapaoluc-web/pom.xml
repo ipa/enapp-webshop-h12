@@ -59,6 +59,8 @@
                 <version>2.1.1</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                    <ignoreWebxml>false</ignoreWebxml>
                 </configuration>
             </plugin>
             <plugin>

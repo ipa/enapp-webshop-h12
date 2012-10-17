@@ -48,8 +48,20 @@ public class CustomerDAO implements CustomerDAOLocal {
         return null;
     }    
     
+    @Override
+    public Customer getCustomerByName(final String name) {
+        List<Customer> list = this.getCustomers();
+        for(Customer c : list){
+            if(c.getUsername().equals(name)){
+                return c;
+            }
+        }
+        return null;
+    }
+    
     /** Just for UnitTests **/
     void setCustomerFacade(final CustomerFacadeLocal facade){
         this.cf = facade;
     }
+
 }

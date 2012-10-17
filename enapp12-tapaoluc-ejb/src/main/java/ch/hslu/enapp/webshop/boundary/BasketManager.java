@@ -7,6 +7,7 @@ package ch.hslu.enapp.webshop.boundary;
 import ch.hslu.enapp.webshop.lib.boundary.BasketManagerLocal;
 import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
 import ch.hslu.enapp.webshop.lib.boundary.PurchaseManagerLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
 import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.lib.dataaccess.Purchase;
@@ -17,6 +18,8 @@ import ch.hslu.enapp.webshop.lib.model.BasketContentItem;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
 
@@ -35,6 +38,9 @@ public class BasketManager implements BasketManagerLocal {
     private PurchaseManagerLocal purchaseManager;
     private BasketContent content;
 
+    @Resource
+    private SessionContext ejbContext;
+    
     public BasketManager() {
         this.content = new BasketContent();
     }
@@ -62,8 +68,12 @@ public class BasketManager implements BasketManagerLocal {
 
     @Override
     public void checkout() {
+        // only for logged in users
+        String username = ejbContext.getCallerPrincipal().getName();
+        Customer customer = customerDAO.getCustomerByName(username);
+        
         Purchase purchase = convertBasketToPurchase();
-
+        purchase.setCustomer(customer);
         // save purchase
         try {
             purchaseManager.savePurchase(purchase);
@@ -75,7 +85,6 @@ public class BasketManager implements BasketManagerLocal {
     private Purchase convertBasketToPurchase() {
         Purchase purchase = new Purchase();
 
-        purchase.setCustomer(customerDAO.getCustomerById(1));
         purchase.setDatetime(new Date());
         purchase.setStatus(PurchaseStatus.NEW);
         // set the items

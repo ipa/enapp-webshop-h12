@@ -5,6 +5,7 @@
 package ch.hslu.enapp.webshop.lib.dataaccess;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,6 +19,10 @@ public class Purchase {
     private String status;
     private Customer customer;
     private List<PurchaseItem> purchaseItems;
+
+    public Purchase() {
+        this.purchaseItems = new LinkedList<PurchaseItem>();
+    }
 
     public Integer getId() {
         return id;

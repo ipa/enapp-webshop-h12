@@ -63,6 +63,9 @@ public class PurchaseItem {
     public void setProductid(Integer productid) {
         this.productid = productid;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "PurchaseItem{" + "quantity=" + quantity + ", description=" + description + '}';
+    }
 }

@@ -17,5 +17,7 @@ public interface CustomerDAOLocal {
     public List<Customer> getCustomers();
     
     public Customer getCustomerById(int id);
+
+    Customer getCustomerByName(final String name);
     
 }

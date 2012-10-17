@@ -9,6 +9,7 @@ import ch.hslu.enapp.webshop.entity.entities.ProductEntity;
 import ch.hslu.enapp.webshop.entity.entities.PurchaseEntity;
 import ch.hslu.enapp.webshop.entity.entities.PurchaseitemEntity;
 import ch.hslu.enapp.webshop.entity.facade.PurchaseFacadeLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
 import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.lib.dataaccess.ProductDAOLocal;
@@ -61,6 +62,27 @@ public class PurchaseDAO implements PurchaseDAOLocal {
         this.pfl.create(entity);
     }
     
+    @Override
+    public List<Purchase> getPurchaseByCustomer(final Customer customer) {
+        List<Purchase> purchases = new LinkedList<Purchase>();
+        List<PurchaseEntity> entities = pfl.findAll();
+        ModelMapper mapper = new ModelMapper();
+        for(PurchaseEntity e : entities){
+            if(e.getCustomerid().getId() == customer.getId()){
+                Purchase p = mapper.map(e, Purchase.class);
+                for(PurchaseitemEntity pie : e.getPurchaseitemCollection()){
+                    PurchaseItem pi = new PurchaseItem();
+                    pi.setDescription(pie.getDescription());
+                    pi.setId(pie.getId());
+                    pi.setQuantity(pie.getQuantity());
+                    p.getPurchaseItems().add(pi);
+                }
+                purchases.add(p);
+            }
+        }
+        return purchases;
+    }
+    
     /** Just for UnitTests **/
     void setPurchaseFacade(final PurchaseFacadeLocal facade){
         this.pfl = facade;
@@ -73,5 +95,6 @@ public class PurchaseDAO implements PurchaseDAOLocal {
     void setCustomerDAO(final CustomerDAOLocal dao){
         this.cdl = dao;
     }
+
 
 }
