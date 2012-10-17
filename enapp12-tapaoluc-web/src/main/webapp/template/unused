@@ -1,0 +1,10 @@
+
+                                <!--<li><a href="#{facesContext.externalContext.requestContextPath}/testings.xhtml">Tests</a></li>
+                                <li><a href="#{facesContext.externalContext.requestContextPath}/login.xhtml">Login</a></li>-->
+                        <form id="login" class="navbar-form pull-right" method="POST" action="login.xhtml/j_security_check" name="loginForm">
+                            <!--<input class="input-small span2" type="text" id="j_username" placeholder="Username"  />
+                            <input class="input-small span2" type="password" id="j_password" placeholder="Password" />-->
+                            <h:inputText class="input-small span2" styleClass="input" type="text" id="j_username" placeholder="Username"  />
+                            <h:inputSecret class="input-small span2" styleClass="input" type="password" id="j_password" placeholder="Password" />
+                            <h:commandButton type="submit" class="btn" value="Login"></h:commandButton>
+                        </form>

@@ -23,9 +23,9 @@ VALUES (5,'Track 5','some music','...',10);
 
 -- insert some users
 INSERT INTO customer(id,username, password,name,address,email)
-VALUES(1, 'dude',MD5('dudness'),'Dude','somewhere','dude@duderino.ch');
+VALUES(1, 'dude','dude','Dude','somewhere','dude@duderino.ch');
 INSERT INTO customer(id,username, password,name,address,email)
-VALUES(2, 'donny',MD5('***'),'Donny','somewhere','donny@duderino.ch');
+VALUES(2, 'donny','donny','Donny','somewhere','donny@duderino.ch');
 
 -- insert a purchase with items
 INSERT INTO purchase(id,customerid,datetime,status)
