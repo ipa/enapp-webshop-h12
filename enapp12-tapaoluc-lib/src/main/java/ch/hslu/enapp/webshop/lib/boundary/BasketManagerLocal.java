@@ -27,7 +27,7 @@ public interface BasketManagerLocal {
      * @param productId
      * @param amount
      */
-    public void addProduct(int productId, int amount);
+    public void addProduct(String productId, int amount);
 
     /**
      *

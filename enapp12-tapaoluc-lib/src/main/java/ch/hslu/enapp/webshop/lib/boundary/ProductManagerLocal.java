@@ -17,6 +17,6 @@ public interface ProductManagerLocal {
 
     public List<Product> getAllProducts();
 
-    public Product getProductById(int productId);
+    public Product getProductById(String productId);
     
 }

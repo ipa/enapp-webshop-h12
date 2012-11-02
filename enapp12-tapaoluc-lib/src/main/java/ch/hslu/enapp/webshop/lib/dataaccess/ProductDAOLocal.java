@@ -17,6 +17,6 @@ public interface ProductDAOLocal {
 
     public List<Product> getProducts();
 
-    public Product getProductById(Integer productid);
+    public Product getProductById(String productid);
     
 }

@@ -29,7 +29,7 @@ public class ProductManager implements ProductManagerLocal {
     }
     
     @Override
-    public Product getProductById(int productId){
+    public Product getProductById(String productId){
         return dao.getProductById(productId);
     }
 }

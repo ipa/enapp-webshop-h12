@@ -51,7 +51,7 @@ public class BasketManager implements BasketManagerLocal {
     }
 
     @Override
-    public void addProduct(int productId, int amount) {
+    public void addProduct(String productId, int amount) {
         Product p = pml.getProductById(productId);
         this.addProduct(p, amount);
     }

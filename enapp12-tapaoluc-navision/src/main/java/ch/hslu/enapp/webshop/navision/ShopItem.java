@@ -2,27 +2,26 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ch.hslu.enapp.webshop.lib.dataaccess;
+package ch.hslu.enapp.webshop.navision;
 
 /**
  *
  * @author Admin
  */
-public class Product {
-    private Integer id;
+public class ShopItem {
+    private String identifiercode;
     private String number;
     private String name;
     private String description;
-    private String mediapath;
+    private String mediafilename;
     private Long unitprice;
 
-    public Integer getId() {
-        return id;
+    public String getIdentifiercode() {
+        return identifiercode;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        this.number = this.id.toString();
+    public void setIdentifiercode(String identifiercode) {
+        this.identifiercode = identifiercode;
     }
 
     public String getNumber() {
@@ -32,7 +31,7 @@ public class Product {
     public void setNumber(String number) {
         this.number = number;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -49,12 +48,12 @@ public class Product {
         this.description = description;
     }
 
-    public String getMediapath() {
-        return mediapath;
+    public String getMediafilename() {
+        return mediafilename;
     }
 
-    public void setMediapath(String mediapath) {
-        this.mediapath = mediapath;
+    public void setMediafilename(String mediafilename) {
+        this.mediafilename = mediafilename;
     }
 
     public Long getUnitprice() {

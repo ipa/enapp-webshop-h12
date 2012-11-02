@@ -35,14 +35,14 @@ public class Basket implements Serializable {
     
     public void addProduct(){
         String productid = getParameter();
-        int id = Integer.parseInt(productid);
-        bml.addProduct(id, 1);
+        //int id = Integer.parseInt(productid);
+        bml.addProduct(productid, 1);
     }
     
     public void removeProduct(){
         String productid = getParameter();
-        int id = Integer.parseInt(productid);
-        bml.addProduct(id, -1);
+        //int id = Integer.parseInt(productid);
+        bml.addProduct(productid, -1);
     }
     
     public int numberOfProducts(){
