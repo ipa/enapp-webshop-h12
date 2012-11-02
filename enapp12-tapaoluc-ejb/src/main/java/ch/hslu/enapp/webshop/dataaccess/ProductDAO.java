@@ -20,12 +20,12 @@ import org.modelmapper.ModelMapper;
  * @author Admin
  */
 @Stateless
-public class ProductDAO {
+public class ProductDAO implements ProductDAOLocal {
 
     @Inject
     private ProductFacadeLocal pf;
     
-    //@Override
+    @Override
     public List<Product> getProducts() {
         List<Product> products = new LinkedList<Product>();
         List<ProductEntity> entitites = this.pf.findAll();
@@ -37,7 +37,7 @@ public class ProductDAO {
         return products;
     }
     
-    //@Override
+    @Override
     public Product getProductById(String productid) {
         Integer i = Integer.parseInt(productid);
         List<Product> products = this.getProducts();

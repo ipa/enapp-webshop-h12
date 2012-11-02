@@ -27,6 +27,7 @@ import schemas.dynamics.microsoft.page.item.ItemService;
  *
  * @author Admin
  */
+@NavisionImpl
 public class NavisionClient implements NavisionClientLocal {
     
     final String namespaceURI = "urn:microsoft-dynamics-schemas/page/item";
@@ -51,7 +52,9 @@ public class NavisionClient implements NavisionClientLocal {
         ModelMapper mapper = new ModelMapper();
         mapper.addMappings(new ShopItemMap());
         for(Item i : items.getItem()){
-            ShopItem si = mapper.map(i, ShopItem.class);
+            ShopItem si = new ShopItem();
+            si.setDescription(i.getDescription());
+            //ShopItem si = mapper.map(i, ShopItem.class);
             si.setUnitprice(i.getUnitPrice().longValue());
             // style ART0000244
             si.setNumber(i.getNo());

@@ -6,8 +6,10 @@ package ch.hslu.enapp.webshop.dataaccess;
 
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.lib.dataaccess.ProductDAOLocal;
+import ch.hslu.enapp.webshop.lib.quailiers.WebServiceProcuctDAO;
 import ch.hslu.enapp.webshop.navision.NavisionClient;
 import ch.hslu.enapp.webshop.navision.NavisionClientLocal;
+import ch.hslu.enapp.webshop.navision.NavisionImpl;
 import ch.hslu.enapp.webshop.navision.ShopItem;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,15 +23,16 @@ import javax.inject.Inject;
  * @author Admin
  */
 @Stateless
-@Default
+@WebServiceProcuctDAO
 public class NavisionProductDAO implements ProductDAOLocal {
     
     //@Inject
-    //private NavisionClient navisionClient;
+    //@NavisionImpl
+    //private NavisionClientLocal navisionClient;
     
     @Override
     public List<Product> getProducts() {
-        NavisionClient navisionClient = new NavisionClient();
+        NavisionClientLocal navisionClient = new NavisionClient();
         List<Product> products = new LinkedList<Product>();
         List<ShopItem> items = navisionClient.getItems();
         

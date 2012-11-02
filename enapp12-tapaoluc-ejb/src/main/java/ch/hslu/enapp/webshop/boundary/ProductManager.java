@@ -7,6 +7,7 @@ package ch.hslu.enapp.webshop.boundary;
 import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.lib.dataaccess.ProductDAOLocal;
+import ch.hslu.enapp.webshop.lib.quailiers.WebServiceProcuctDAO;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 public class ProductManager implements ProductManagerLocal {
 
     @Inject
+    @WebServiceProcuctDAO
     private ProductDAOLocal dao;
     
     @Override

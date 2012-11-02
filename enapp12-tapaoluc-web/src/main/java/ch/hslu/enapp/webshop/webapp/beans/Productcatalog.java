@@ -8,7 +8,6 @@ import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import java.util.LinkedList;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
@@ -34,9 +33,10 @@ public class Productcatalog {
     }
     
     public List<Product> getAllProducts(){
-        this.allProducts.clear();
-        this.allProducts.addAll(pml.getAllProducts());
-        
+        if(this.allProducts.isEmpty()){
+            this.allProducts.clear();
+            this.allProducts.addAll(pml.getAllProducts());
+        }
         return this.allProducts;
     }
 }
