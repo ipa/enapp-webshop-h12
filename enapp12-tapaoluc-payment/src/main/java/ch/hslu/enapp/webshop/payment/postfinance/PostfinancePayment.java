@@ -10,9 +10,11 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import java.io.UnsupportedEncodingException;
-import java.util.Formatter;
-import java.util.Locale;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MultivaluedMap;
@@ -22,7 +24,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  *
  * @author Admin
  */
-public class PostinancePayment {
+public class PostfinancePayment {
 
     private static final String URI = "https://e-payment.postfinance.ch/ncol/test/orderdirect.asp";
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
@@ -35,7 +37,7 @@ public class PostinancePayment {
     private static final String OPERATION = "RES";
     private WebResource webResource;
     
-    public PostinancePayment(){
+    public PostfinancePayment(){
         this.init();
     }
     
@@ -50,7 +52,6 @@ public class PostinancePayment {
             MultivaluedMap formData = new MultivaluedMapImpl();
             formData.add("PSPID", PSPID);
             formData.add("USERID", USER);
-            //formData.add("PSWD", HashHelper.toSHA1(PWD.getBytes("UTF-8")));
             formData.add("PSWD", PWD);
             formData.add("OPERATION", OPERATION);
             formData.add("CURRENCY", CURENCY);
@@ -63,13 +64,13 @@ public class PostinancePayment {
             formData.add("CVC", pay.getCvc());
             
             // generate hash
-            formData.add("SHASIGN", this.getHash(pay));
+            formData.add("SHASIGN", this.getHash(formData));
             
             NcResponse response = this.webResource.type(CONTENT_TYPE).post(NcResponse.class, formData);
             
             return response;
         } catch (Exception ex) {
-            Logger.getLogger(PostinancePayment.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PostfinancePayment.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -77,31 +78,32 @@ public class PostinancePayment {
     //private static final HASH_FORMAT = "";
     
     /**
-     * AMOUNT=1500Mysecretsig1875!?
-     * CARDNO=4111111111111111Mysecretsig1875!? 
-     * CURRENCY=EURMysecretsig1875!?
-     * OPERATION=RESMysecretsig1875!? 
-     * ORDERID=1234Mysecretsig1875!?
-     * PSPID=MyPSPIDMysecretsig1875!?
      * @param pay
      * @return 
      */
-    String getHash(CreditCardPayment pay) {
+    String getHash(MultivaluedMap pay) {
         
         String toHash = getStringToHash(pay);
         
         return DigestUtils.shaHex(toHash).toUpperCase();
     }
 
-    String getStringToHash(CreditCardPayment pay) {
+    String getStringToHash(MultivaluedMap pay) {
         StringBuilder sb = new StringBuilder();
-        //Formatter formatter = new Formatter(sb, Locale.US);
-        //formatter.format(HASH_FORMAT, args)
-        sb.append("AMOUNT=").append(pay.getAmountAsString()).append(SHA1IN);
-        sb.append("CARDNO=").append(pay.getCardno()).append(SHA1IN);
-        sb.append("CURRENCY=").append(CURENCY).append(SHA1IN);
-        sb.append("OPERATION=").append(OPERATION).append(SHA1IN);
-        sb.append("PSPID=").append(PSPID).append(SHA1IN);
+
+        Set<String> keys = pay.keySet();
+        SortedSet<String> sortedKeys = new TreeSet<String>();
+        for(String s : keys){
+            sortedKeys.add(s);
+        }
+        
+        for(String key : sortedKeys){
+            sb.append(key).append("=");
+            String val = pay.get(key).toString().replace("[", "").replace("]", "");
+            sb.append(val);
+            sb.append(SHA1IN);
+        }
+        
         String toHash = sb.toString();
         return toHash;
     }
