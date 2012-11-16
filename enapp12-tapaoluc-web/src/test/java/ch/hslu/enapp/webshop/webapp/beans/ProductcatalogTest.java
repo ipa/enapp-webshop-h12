@@ -4,6 +4,11 @@
  */
 package ch.hslu.enapp.webshop.webapp.beans;
 
+import ch.hslu.enapp.webshop.boundary.ProductManager;
+import ch.hslu.enapp.webshop.dataaccess.NavisionProductDAO;
+import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
+import ch.hslu.enapp.webshop.lib.dataaccess.Product;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -16,5 +21,15 @@ public class ProductcatalogTest {
     public ProductcatalogTest() {
     }
 
-    
+    @Test
+    public void testGetAllProducts(){
+        Productcatalog catalog = new Productcatalog();
+        ProductManager pml = new ProductManager();
+        NavisionProductDAO dao = new NavisionProductDAO();
+        pml.setProductDAO(dao);
+        catalog.setProductManager(pml);
+        catalog.postConstruct();
+        List<Product> list = catalog.getAllProducts();
+        assertFalse(list.isEmpty());
+    }
 }

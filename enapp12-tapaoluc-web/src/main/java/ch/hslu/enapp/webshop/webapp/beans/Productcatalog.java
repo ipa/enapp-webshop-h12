@@ -6,9 +6,11 @@ package ch.hslu.enapp.webshop.webapp.beans;
 
 import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import javax.faces.bean.ApplicationScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
 
@@ -17,8 +19,8 @@ import javax.inject.Inject;
  * @author Admin
  */
 @Named(value = "productcatalog")
-@ApplicationScoped
-public class Productcatalog {
+@SessionScoped
+public class Productcatalog implements Serializable {
 
     @Inject
     private ProductManagerLocal pml;
@@ -30,13 +32,20 @@ public class Productcatalog {
      */
     public Productcatalog() {
         this.allProducts = new LinkedList<Product>();
-        if(this.allProducts.isEmpty()){
-            this.allProducts.clear();
-            this.allProducts.addAll(pml.getAllProducts());
-        }
+    }
+    
+    @PostConstruct
+    void postConstruct(){
+        this.allProducts.clear();
+        this.allProducts.addAll(pml.getAllProducts());
     }
     
     public List<Product> getAllProducts(){
         return this.allProducts;
+    }
+    
+    /* for test */
+    void setProductManager(ProductManagerLocal pml){
+        this.pml = pml;
     }
 }

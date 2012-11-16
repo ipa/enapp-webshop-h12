@@ -34,4 +34,9 @@ public class ProductManager implements ProductManagerLocal {
     public Product getProductById(String productId){
         return dao.getProductById(productId);
     }
+    
+    /* for test */
+    public void setProductDAO(ProductDAOLocal dao){
+        this.dao = dao;
+    }
 }
