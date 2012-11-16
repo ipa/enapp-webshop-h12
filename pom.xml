@@ -12,5 +12,6 @@
     <module>enapp12-tapaoluc-ejb</module>
     <module>enapp12-tapaoluc-lib</module>
     <module>enapp12-tapaoluc-navision</module>
+    <module>enapp12-tapaoluc-payment</module>
   </modules>
 </project>
