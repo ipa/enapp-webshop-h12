@@ -18,7 +18,7 @@
                     <th></th>
                 </thead>
                 <tbody>
-                    <c:forEach items="#{productcatalog.getAllProducts()}" var="product">
+                    <c:forEach items="#{productcatalog.allProducts}" var="product">
                         <tr>
                             <td>#{product.name}</td>
                             <td>#{product.description}</td>

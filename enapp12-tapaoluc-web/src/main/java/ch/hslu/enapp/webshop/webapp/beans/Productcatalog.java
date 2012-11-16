@@ -30,13 +30,13 @@ public class Productcatalog {
      */
     public Productcatalog() {
         this.allProducts = new LinkedList<Product>();
-    }
-    
-    public List<Product> getAllProducts(){
         if(this.allProducts.isEmpty()){
             this.allProducts.clear();
             this.allProducts.addAll(pml.getAllProducts());
         }
+    }
+    
+    public List<Product> getAllProducts(){
         return this.allProducts;
     }
 }
