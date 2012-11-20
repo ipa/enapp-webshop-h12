@@ -4,7 +4,9 @@
  */
 package ch.hslu.enapp.webshop.payment.postfinance;
 
+import ch.hslu.enapp.webshop.payment.common.PaymentLocal;
 import ch.hsu.enapp.webshop.payment.model.CreditCardPayment;
+import ch.hsu.enapp.webshop.payment.model.PaymentResponse;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
@@ -24,7 +26,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  *
  * @author Admin
  */
-public class PostfinancePayment {
+public class PostfinancePayment implements PaymentLocal {
 
     private static final String URI = "https://e-payment.postfinance.ch/ncol/test/orderdirect.asp";
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
@@ -47,7 +49,9 @@ public class PostfinancePayment {
         this.webResource = client.resource(URI);
     }
     
-    public NcResponse sendPayment(CreditCardPayment pay) {
+    @Override
+    public PaymentResponse sendPayment(CreditCardPayment pay) {
+        PaymentResponse response = new PaymentResponse();
         try {
             MultivaluedMap formData = new MultivaluedMapImpl();
             formData.add("PSPID", PSPID);
@@ -66,7 +70,10 @@ public class PostfinancePayment {
             // generate hash
             formData.add("SHASIGN", this.getHash(formData));
             
-            NcResponse response = this.webResource.type(CONTENT_TYPE).post(NcResponse.class, formData);
+            NcResponse res = this.webResource.type(CONTENT_TYPE).post(NcResponse.class, formData);
+            response.setSuccess(res.getNcStatus().equals("ok"));
+            response.setMessage(res.getNcErrorPlus());
+            response.setPaymentid(res.getPayId());
             
             return response;
         } catch (Exception ex) {
@@ -98,7 +105,8 @@ public class PostfinancePayment {
         }
         
         for(String key : sortedKeys){
-            sb.append(key).append("=");
+            String key1 = key.replace("[", "").replace("]", "");
+            sb.append(key1).append("=");
             String val = pay.get(key).toString().replace("[", "").replace("]", "");
             sb.append(val);
             sb.append(SHA1IN);

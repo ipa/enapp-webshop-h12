@@ -9,6 +9,7 @@ import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
 import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Purchase;
 import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseDAOLocal;
+import ch.hslu.enapp.webshop.lib.quailiers.JMSPurchaseDAO;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -22,7 +23,9 @@ import javax.inject.Inject;
 public class PurchaseManager implements PurchaseManagerLocal {
 
     @Inject
+    @JMSPurchaseDAO
     private PurchaseDAOLocal dao;
+    
     
     @Inject
     private CustomerDAOLocal cdao;

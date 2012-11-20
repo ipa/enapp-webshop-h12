@@ -19,7 +19,8 @@ public class Purchase {
     private String status;
     private Customer customer;
     private List<PurchaseItem> purchaseItems;
-
+    private String payid;
+    
     public Purchase() {
         this.purchaseItems = new LinkedList<PurchaseItem>();
     }
@@ -64,4 +65,11 @@ public class Purchase {
         this.purchaseItems = purchaseItems;
     }
     
+    public String getPayid() {
+        return payid;
+    }
+
+    public void setPayid(String payid) {
+        this.payid = payid;
+    }
 }

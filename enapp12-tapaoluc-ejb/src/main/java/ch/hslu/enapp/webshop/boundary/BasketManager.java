@@ -5,6 +5,7 @@
 package ch.hslu.enapp.webshop.boundary;
 
 import ch.hslu.enapp.webshop.lib.boundary.BasketManagerLocal;
+import ch.hslu.enapp.webshop.lib.boundary.PaymentManagerLocal;
 import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
 import ch.hslu.enapp.webshop.lib.boundary.PurchaseManagerLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
@@ -18,7 +19,9 @@ import ch.hslu.enapp.webshop.lib.model.BasketContentItem;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
+import javax.ejb.EJBException;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
@@ -38,6 +41,9 @@ public class BasketManager implements BasketManagerLocal {
     private PurchaseManagerLocal purchaseManager;
     private BasketContent content;
 
+    @Inject
+    private PaymentManagerLocal paymgr;
+    
     @Resource
     private SessionContext ejbContext;
     
@@ -67,13 +73,26 @@ public class BasketManager implements BasketManagerLocal {
     }
 
     @Override
-    public void checkout() {
+    public void checkout(Map<String, String> map) {
         // only for logged in users
         String username = ejbContext.getCallerPrincipal().getName();
         Customer customer = customerDAO.getCustomerByName(username);
-        
+
         Purchase purchase = convertBasketToPurchase();
+        String orderid = new Date().toString();
+        List<PurchaseItem> items = purchase.getPurchaseItems();
+        long amount = 0;
+        for(PurchaseItem pi : items){
+            amount += (pi.getQuantity() + pi.getUnitprice()) * 100;
+        }
+        String payid = this.paymgr.pay(map, amount, orderid);
+        if(payid == null){
+            throw new EJBException("payment not successful");
+        }
+                
         purchase.setCustomer(customer);
+        purchase.setPayid(payid);
+        
         // save purchase
         try {
             purchaseManager.savePurchase(purchase);
