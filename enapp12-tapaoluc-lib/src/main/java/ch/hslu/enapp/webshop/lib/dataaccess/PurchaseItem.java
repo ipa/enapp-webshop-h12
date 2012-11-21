@@ -15,6 +15,7 @@ public class PurchaseItem {
     private Long lineamount;
     private String description;
     private Integer productid;
+    private String productNo;
 
     public Integer getId() {
         return id;
@@ -64,8 +65,21 @@ public class PurchaseItem {
         this.productid = productid;
     }
 
+    public String getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo) {
+        this.productNo = productNo;
+    }
+    
     @Override
     public String toString() {
         return "PurchaseItem{" + "quantity=" + quantity + ", description=" + description + '}';
+    }
+
+    public String geTotalPriceAsString() {
+         Long totalPrice = this.getQuantity() * this.getUnitprice();
+         return totalPrice.toString();
     }
 }

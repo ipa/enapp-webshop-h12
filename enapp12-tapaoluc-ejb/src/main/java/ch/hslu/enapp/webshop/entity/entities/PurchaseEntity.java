@@ -51,6 +51,10 @@ public class PurchaseEntity implements Serializable {
     @Size(max = 15)
     @Column(name = "status")
     private String status;
+    
+    @Column(name = "corrid")
+    private String corrid;
+    
     @JoinColumn(name = "customerid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private CustomerEntity customerid;
@@ -96,6 +100,14 @@ public class PurchaseEntity implements Serializable {
         this.customerid = customerid;
     }
 
+    public String getCorrid() {
+        return corrid;
+    }
+
+    public void setCorrid(String corrid) {
+        this.corrid = corrid;
+    }
+    
     @XmlTransient
     public Collection<PurchaseitemEntity> getPurchaseitemCollection() {
         return purchaseitemCollection;

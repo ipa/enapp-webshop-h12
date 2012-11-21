@@ -11,6 +11,7 @@ import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -21,7 +22,7 @@ public class ProductcatalogTest {
     public ProductcatalogTest() {
     }
 
-    @Test
+    @Test @Ignore
     public void testGetAllProducts(){
         Productcatalog catalog = new Productcatalog();
         ProductManager pml = new ProductManager();

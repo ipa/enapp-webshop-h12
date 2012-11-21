@@ -9,14 +9,10 @@ import ch.hslu.enapp.webshop.lib.dataaccess.ProductDAOLocal;
 import ch.hslu.enapp.webshop.lib.quailiers.WebServiceProcuctDAO;
 import ch.hslu.enapp.webshop.navision.NavisionClient;
 import ch.hslu.enapp.webshop.navision.NavisionClientLocal;
-import ch.hslu.enapp.webshop.navision.NavisionImpl;
 import ch.hslu.enapp.webshop.navision.ShopItem;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
-import javax.enterprise.inject.Default;
-import javax.inject.Inject;
 
 /**
  *

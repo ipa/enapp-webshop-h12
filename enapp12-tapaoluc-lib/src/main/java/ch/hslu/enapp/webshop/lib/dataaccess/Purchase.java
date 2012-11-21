@@ -13,18 +13,26 @@ import java.util.List;
  * @author Admin
  */
 public class Purchase {
-   
     private Integer id;
     private Date datetime;
     private String status;
     private Customer customer;
     private List<PurchaseItem> purchaseItems;
     private String payid;
+    private String corrid;
     
     public Purchase() {
         this.purchaseItems = new LinkedList<PurchaseItem>();
     }
 
+    public String getTotalPriceAsString(){
+        Long price = 0L;
+        for(PurchaseItem item : purchaseItems){
+            price += item.getQuantity() * item.getUnitprice();
+        }
+        return price.toString();
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -71,5 +79,13 @@ public class Purchase {
 
     public void setPayid(String payid) {
         this.payid = payid;
+    }
+
+    public String getCorrid() {
+        return corrid;
+    }
+
+    public void setCorrid(String corrid) {
+        this.corrid = corrid;
     }
 }

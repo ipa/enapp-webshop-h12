@@ -28,6 +28,7 @@ CREATE TABLE `enappwebshop`.`purchase` (
   `customerid` INTEGER UNSIGNED NOT NULL,
   `datetime` DATETIME COMMENT 'Date / Time of purchase',
   `status` VARCHAR(15) COMMENT 'state of purchase',
+  `corrrid` VARCHAR(50) COMMENT 'correlation id',
   PRIMARY KEY (`id`),
 foreign key (`customerid`) 
 	references `customer` (`id`)
@@ -55,3 +56,4 @@ CREATE TABLE customergroups (
 	groupname VARCHAR(15) NOT NULL,
 	PRIMARY KEY (`id`)
 );
+

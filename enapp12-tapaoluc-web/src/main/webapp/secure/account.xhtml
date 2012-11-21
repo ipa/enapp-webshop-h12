@@ -16,6 +16,7 @@
                 <thead>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Correlation id</th>
                     <th>Items</th>
                 </thead>
                 <tbody>
@@ -23,6 +24,7 @@
                         <tr>
                             <td>#{item.datetime}</td>
                             <td>#{item.status}</td>
+                            <td>#{item.corrid}</td>
                             <td>
                                 <ul>
                                     <c:forEach items="#{item.purchaseItems}" var="pitem">

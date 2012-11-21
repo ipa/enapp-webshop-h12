@@ -6,6 +6,7 @@ package ch.hslu.enapp.webshop.boundary;
 
 import ch.hslu.enapp.webshop.lib.boundary.PaymentManagerLocal;
 import ch.hslu.enapp.webshop.payment.common.PaymentLocal;
+import ch.hslu.enapp.webshop.payment.postfinance.PostfinancePayment;
 import ch.hsu.enapp.webshop.payment.model.CreditCardPayment;
 import ch.hsu.enapp.webshop.payment.model.PaymentResponse;
 import java.util.Map;
@@ -20,8 +21,12 @@ import javax.inject.Inject;
 @Stateless
 public class PaymentManager implements PaymentManagerLocal {
 
-    @Inject
+    //@Inject
     private PaymentLocal pl;
+    
+    public PaymentManager(){
+        this.pl = new PostfinancePayment();
+    }
     
     @Override
     public String pay(Map<String, String> map, long amount, String orderid) {        

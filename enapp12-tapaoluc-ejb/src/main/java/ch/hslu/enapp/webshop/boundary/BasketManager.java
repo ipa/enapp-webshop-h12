@@ -115,6 +115,7 @@ public class BasketManager implements BasketManagerLocal {
             pItem.setProductid(item.getProduct().getId());
             pItem.setQuantity(item.getAmount());
             pItem.setUnitprice(item.getProduct().getUnitprice());
+            pItem.setProductNo(item.getProduct().getNumber());
             pItems.add(pItem);
         }
         purchase.setPurchaseItems(pItems);

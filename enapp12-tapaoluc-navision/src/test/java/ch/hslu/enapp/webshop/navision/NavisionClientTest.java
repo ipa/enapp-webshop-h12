@@ -7,6 +7,7 @@ package ch.hslu.enapp.webshop.navision;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import schemas.dynamics.microsoft.page.item.Item;
 import schemas.dynamics.microsoft.page.item.ItemList;
 
@@ -19,21 +20,21 @@ public class NavisionClientTest {
     public NavisionClientTest() {
     }
 
-    @Test
+    @Test @Ignore
     public void testConnect() {
         NavisionClient client = new NavisionClient();
         boolean connect = client.connect();
         assertTrue(connect);
     }
 
-    @Test
+    @Test @Ignore
     public void testGetAllItems() {
         NavisionClient client = new NavisionClient();
         ItemList list = client.getAllItems();
         assertTrue(!list.getItem().isEmpty());
     }
 
-    @Test
+    @Test @Ignore
     public void testGetAllMP3() {
         NavisionClient client = new NavisionClient();
         ItemList list = client.getAllMP3();
@@ -43,7 +44,7 @@ public class NavisionClientTest {
         }
     }
     
-    @Test
+    @Test @Ignore
     public void testGellItems(){
         NavisionClient client = new NavisionClient();
         List<ShopItem> items = client.getItems();
@@ -56,7 +57,7 @@ public class NavisionClientTest {
         }
     }
     
-    @Test
+    @Test @Ignore
     public void testGetItmesSize(){
         NavisionClient client = new NavisionClient();
         long sizeMp3 = client.getAllMP3().getItem().size();
