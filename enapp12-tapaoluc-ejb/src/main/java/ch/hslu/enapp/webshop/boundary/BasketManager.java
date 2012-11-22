@@ -14,12 +14,17 @@ import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import ch.hslu.enapp.webshop.lib.dataaccess.Purchase;
 import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseItem;
 import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseStatus;
+import ch.hslu.enapp.webshop.lib.exceptions.BusinessException;
+import ch.hslu.enapp.webshop.lib.exceptions.PaymentUnsuccessfulException;
 import ch.hslu.enapp.webshop.lib.model.BasketContent;
 import ch.hslu.enapp.webshop.lib.model.BasketContentItem;
+import ch.hsu.enapp.webshop.payment.model.PaymentResponse;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.EJBException;
 import javax.ejb.SessionContext;
@@ -73,7 +78,7 @@ public class BasketManager implements BasketManagerLocal {
     }
 
     @Override
-    public void checkout(Map<String, String> map) {
+    public void checkout(Map<String, String> map) throws BusinessException{
         // only for logged in users
         String username = ejbContext.getCallerPrincipal().getName();
         Customer customer = customerDAO.getCustomerByName(username);
@@ -85,19 +90,29 @@ public class BasketManager implements BasketManagerLocal {
         for(PurchaseItem pi : items){
             amount += (pi.getQuantity() + pi.getUnitprice()) * 100;
         }
-        String payid = this.paymgr.pay(map, amount, orderid);
+        PaymentResponse payid;
+        try {
+            payid = (PaymentResponse) this.paymgr.pay(map, amount, orderid);
+        } catch (PaymentUnsuccessfulException ex) {
+            throw ex;
+        }
+        
         if(payid == null){
-            throw new EJBException("payment not successful");
+            throw new BusinessException("payment did not work");
         }
                 
         purchase.setCustomer(customer);
-        purchase.setPayid(payid);
+        purchase.setPayid(payid.getPaymentid());
         
         // save purchase
         try {
+            //purchase.setPurchaseItems(new LinkedList<PurchaseItem>());
             purchaseManager.savePurchase(purchase);
-            this.content = new BasketContent();
+            
         } catch (Exception ex) {
+            throw new EJBException(ex);
+        }finally{
+            this.content = new BasketContent();
         }
     }
 
@@ -110,7 +125,7 @@ public class BasketManager implements BasketManagerLocal {
         List<PurchaseItem> pItems = new LinkedList<PurchaseItem>();
         for (BasketContentItem item : this.content.getItems()) {
             PurchaseItem pItem = new PurchaseItem();
-            pItem.setDescription(item.getProduct().getDescription());
+            pItem.setDescription(item.getProduct().getName());
             pItem.setLineamount(1L);
             pItem.setProductid(item.getProduct().getId());
             pItem.setQuantity(item.getAmount());

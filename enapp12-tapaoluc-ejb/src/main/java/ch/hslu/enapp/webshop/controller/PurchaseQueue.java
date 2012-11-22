@@ -11,6 +11,7 @@ import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
 import ch.hslu.enapp.webshop.lib.dataaccess.Purchase;
 import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseItem;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -21,6 +22,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.MessageDriven;
 import javax.ejb.Stateless;
 import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -29,6 +32,9 @@ import javax.jms.Queue;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -40,12 +46,11 @@ import javax.jms.TextMessage;
 })
 public class PurchaseQueue implements MessageListener, PurchaseQueueLocal {
     
-    
-    @Resource(mappedName = "jms/purchasequeuefactory")
-    private QueueConnectionFactory connectionFactory;
+    //@Resource(mappedName = "jms/purchasequeuefactory")
+    //private QueueConnectionFactory connectionFactory;
 
-    @Resource(mappedName = "jms/purchasequeue")
-    private Queue queue;
+    //@Resource(mappedName = "jms/purchasequeue")
+    //private Queue queue;
     
     private static final String STUDENT = "tapaoluc";
     
@@ -54,49 +59,67 @@ public class PurchaseQueue implements MessageListener, PurchaseQueueLocal {
     
     @Override
     public void onMessage(Message message) {
+        System.out.println("got message");
     }
 
     @Override
     public List<Purchase> getPurchaseById(Customer customer) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return new LinkedList<Purchase>();
     }
 
     @Override
     public void enqueuePurchase(Purchase purchase){
-        Connection conn = null;
-        Session s = null;
         
         try {
-            String xml = this.getPurchaseAsXml(purchase);
+            Context c = new InitialContext();
+            ConnectionFactory cf = (ConnectionFactory) c.lookup("jms/purchasequeuefactory");
+            Connection conn = null;
+            Session s = null;
             
-            conn = connectionFactory.createConnection();
-            s = conn.createSession(false, s.AUTO_ACKNOWLEDGE);
-            MessageProducer mp = s.createProducer(queue);
-           
-            TextMessage txtMessage = s.createTextMessage(xml);
-            String correlationid = this.getCorrelationId();
-            purchase.setCorrid(correlationid);
-            txtMessage.setJMSCorrelationID(correlationid);
-            txtMessage.setStringProperty("MessageFormat", "Version 1.5");
-            
-            mp.send(txtMessage);
-        } catch (JMSException ex) {
+            try {
+                String xml = this.getPurchaseAsXml(purchase);
+
+                conn = cf.createConnection();
+                s = conn.createSession(false, s.AUTO_ACKNOWLEDGE);
+                Destination destination = (Destination) c.lookup("jms/purchasequeue");
+                MessageProducer mp = s.createProducer(destination);
+
+                TextMessage txtMessage = s.createTextMessage(xml);
+                String correlationid = this.getCorrelationId();
+                purchase.setCorrid(correlationid);
+                
+                txtMessage.setJMSCorrelationID(correlationid);
+                txtMessage.setStringProperty("MessageFormat", "Version 1.5");
+                
+                //Destination tempQueue = s.createTemporaryQueue();
+                //txtMessage.setJMSReplyTo(tempQueue);
+                
+                conn.start();
+                mp.send(txtMessage);
+                
+                System.out.println(xml);
+            } catch (JMSException ex) {
+                Logger.getLogger(PurchaseQueue.class.getName()).log(Level.SEVERE, null, ex);
+            } catch(Exception ex){
+                Logger.getLogger(PurchaseQueue.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (s != null) {
+                    try {
+                        s.close();
+                    } catch (JMSException e) {
+                        Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Cannot close session", e);
+                    }
+                }
+                if(conn != null){
+                    try {
+                        conn.close();
+                    } catch (JMSException ex) {
+                        Logger.getLogger(PurchaseQueue.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        } catch(NamingException ex){
             Logger.getLogger(PurchaseQueue.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (s != null) {
-                try {
-                    s.close();
-                } catch (JMSException e) {
-                    Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Cannot close session", e);
-                }
-            }
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (JMSException ex) {
-                    Logger.getLogger(PurchaseQueue.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
     
@@ -106,7 +129,7 @@ public class PurchaseQueue implements MessageListener, PurchaseQueueLocal {
         // set root xml
         xmlObj.setDate(purchase.getDatetime().toString());
         xmlObj.setPayId(purchase.getPayid());
-        xmlObj.setPurchaseId(purchase.getId().toString());
+        xmlObj.setPurchaseId(purchase.getNo().toString());
         xmlObj.setStudent(STUDENT);
         xmlObj.setTotalPrice(purchase.getTotalPriceAsString());
         
@@ -114,10 +137,10 @@ public class PurchaseQueue implements MessageListener, PurchaseQueueLocal {
         XMLCustomer c = xmlObj.getCustomer();
         c.setAddress(purchase.getCustomer().getAddress());
         c.setCity("Lucerne");
-        c.setDynNavCustNo(purchase.getCustomer().getId().toString());
-        c.setName(purchase.getCustomer().getName());
+        //c.setDynNavCustNo(purchase.getCustomer().getId().toString());
+        c.setName(purchase.getCustomer().getName() + " " + purchase.getCustomer().getName());
         c.setPostCode("6003");
-        c.setShopLoginname("kkk");
+        c.setShopLoginname(purchase.getCustomer().getUsername());
         
         // set lines
         List<PurchaseItem> items = purchase.getPurchaseItems();
@@ -126,6 +149,7 @@ public class PurchaseQueue implements MessageListener, PurchaseQueueLocal {
             line.setQuantity(item.getQuantity().toString());
             line.setTotalLinePrice(item.geTotalPriceAsString());
             line.setMsDynNAVItemNo(item.getProductNo());
+            line.setDescription(item.getDescription());
             xmlObj.getLines().add(line);
         }
         

@@ -50,7 +50,7 @@ public class PostfinancePayment implements PaymentLocal {
     }
     
     @Override
-    public PaymentResponse sendPayment(CreditCardPayment pay) {
+    public PaymentResponse sendPayment(CreditCardPayment pay){
         PaymentResponse response = new PaymentResponse();
         try {
             MultivaluedMap formData = new MultivaluedMapImpl();
@@ -71,15 +71,15 @@ public class PostfinancePayment implements PaymentLocal {
             formData.add("SHASIGN", this.getHash(formData));
             
             NcResponse res = this.webResource.type(CONTENT_TYPE).post(NcResponse.class, formData);
-            response.setSuccess(res.getNcStatus().equals("ok"));
+            boolean success = res.getNcStatus().equals("0");
+            response.setSuccess(success);
             response.setMessage(res.getNcErrorPlus());
             response.setPaymentid(res.getPayId());
             
-            return response;
         } catch (Exception ex) {
             Logger.getLogger(PostfinancePayment.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return response;
     }
 
     //private static final HASH_FORMAT = "";

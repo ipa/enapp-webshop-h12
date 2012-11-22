@@ -4,9 +4,11 @@
  */
 package ch.hslu.enapp.webshop.lib.dataaccess;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -20,11 +22,19 @@ public class Purchase {
     private List<PurchaseItem> purchaseItems;
     private String payid;
     private String corrid;
+    private String no;
     
     public Purchase() {
         this.purchaseItems = new LinkedList<PurchaseItem>();
+        this.no = getPurchaseNo();
     }
 
+    private static String getPurchaseNo(){
+        Long number = ((new Random().nextInt(8999) +  1000)
+                        + Calendar.getInstance().getTimeInMillis());
+        return number.toString();
+    }
+    
     public String getTotalPriceAsString(){
         Long price = 0L;
         for(PurchaseItem item : purchaseItems){
@@ -88,4 +98,13 @@ public class Purchase {
     public void setCorrid(String corrid) {
         this.corrid = corrid;
     }
+
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
+    }
+
 }

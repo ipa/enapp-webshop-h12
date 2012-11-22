@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -21,7 +22,7 @@ public class XMLPurchaseTest {
     public XMLPurchaseTest() {
     }
 
-    @Test
+    @Test @Ignore
     public void testXml() throws JAXBException {
         XMLPurchase purchase = new XMLPurchase();
         purchase.setPayId("1123");
@@ -36,7 +37,7 @@ public class XMLPurchaseTest {
         assertTrue(xml.contains("<payId>1123</payId>"));
     }
     
-    @Test
+    @Test @Ignore
     public void testEmptyXml() throws JAXBException {
         XMLPurchase purchase = new XMLPurchase();
         

@@ -5,34 +5,69 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core">
- 
+
     <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                     template="../template/template.xhtml">
         <ui:define name="content">
             <h2>Checkout</h2>
+            <div  class="hero-unit">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <th>Product</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="#{basket.basketContent().items}" var="item">
+                            <tr>
+                                <td>#{item.product.name}</td>
+                                <td>#{item.amount}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="hero-unit">
+                <ui:fragment rendered="#{basket.messageIsSet('paymessage')}">
+                    <div class="alert alert-error">
+                        <h:message id="paymessage" for="paymessage" />
+                    </div>
+                </ui:fragment>
 
-            <table class="table table-hover table-condensed">
-                <thead>
-                    <th>Product</th>
-                    <th>Amount</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    <c:forEach items="#{basket.basketContent().items}" var="item">
-                        <tr>
-                            <td>#{item.product.name}</td>
-                            <td>#{item.amount}</td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-            
-            <h:form>
-                <h:inputText id="cardno" value="Credit Card"></h:inputText>
-                <h:inputText id="cvc" value="CVC"></h:inputText>
-                <h:inputText id="ed" value="Expire Date"></h:inputText>
-                <h:commandButton class="btn btn-primary"  action="#{basket.checkout()}" value="Checkout" />
-            </h:form>
+                <ui:fragment rendered="#{basket.messageIsSet('paysuccess')}">
+                    <div class="alert alert-success">   
+                        <h:message id="paysuccess" for="paysuccess" />
+                    </div>
+                </ui:fragment>
+                <br></br>
+                <h:form class="form-horizontal">
+                    <div class="control-group">
+                        <h:outputLabel class="control-label" for="cardno" value="Credit Card"/>
+                        <div class="controls">
+                            <h:inputText id="cardno" value="#{basket.cardno}"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h:outputLabel class="control-label" for="cvc"  value="CVC"/>
+                        <div class="controls">
+                            <h:inputText id="cvc" value="#{basket.cvc}"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h:outputLabel class="control-label" for="ed"  value="Expire Date"/>
+                        <div class="controls">
+                            <h:inputText id="ed" value="#{basket.ed}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <h:commandButton class="btn btn-primary" action="#{basket.checkout()}" value="Checkout"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
         </ui:define>
     </ui:composition>
 </html> 

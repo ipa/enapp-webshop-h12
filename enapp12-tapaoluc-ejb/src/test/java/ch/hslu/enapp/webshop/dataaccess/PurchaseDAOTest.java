@@ -60,7 +60,7 @@ public class PurchaseDAOTest {
                 assertFalse(pe.getPurchaseitemCollection().isEmpty());
                 assertTrue(pe.getStatus().equals("New"));
                 for(PurchaseitemEntity e : pe.getPurchaseitemCollection()){
-                    assertTrue(e.getProductid().getId() == 100);
+                    assertTrue(e.getProductno().equals("100"));
                     // on each purchaseitem the purchase id has to be set
                     assertTrue(e.getPurchaseid().getId() == pe.getId());
                 }
@@ -71,6 +71,7 @@ public class PurchaseDAOTest {
         List<Product> products = new LinkedList<Product>();
         Product p = new Product();
         p.setId(100);
+        p.setNumber("100");
         p.setName("product");
         
         when(pdl.getProducts()).thenReturn(products);
@@ -93,7 +94,7 @@ public class PurchaseDAOTest {
         item.setDescription("");
         item.setQuantity(2L);
         item.setUnitprice(123L);
-        item.setProductid(100);
+        item.setProductNo("100");
         pis.add(item);
         purchase.setPurchaseItems(pis);
         

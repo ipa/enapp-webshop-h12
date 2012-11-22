@@ -27,12 +27,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseitem")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Purchaseitem.findAll", query = "SELECT p FROM PurchaseitemEntity p"),
-    @NamedQuery(name = "Purchaseitem.findById", query = "SELECT p FROM PurchaseitemEntity p WHERE p.id = :id"),
-    @NamedQuery(name = "Purchaseitem.findByQuantity", query = "SELECT p FROM PurchaseitemEntity p WHERE p.quantity = :quantity"),
-    @NamedQuery(name = "Purchaseitem.findByUnitprice", query = "SELECT p FROM PurchaseitemEntity p WHERE p.unitprice = :unitprice"),
-    @NamedQuery(name = "Purchaseitem.findByLineamount", query = "SELECT p FROM PurchaseitemEntity p WHERE p.lineamount = :lineamount"),
-    @NamedQuery(name = "Purchaseitem.findByDescription", query = "SELECT p FROM PurchaseitemEntity p WHERE p.description = :description")})
+    @NamedQuery(name = "PurchaseitemEntity.findAll", query = "SELECT p FROM PurchaseitemEntity p"),
+    @NamedQuery(name = "PurchaseitemEntity.findById", query = "SELECT p FROM PurchaseitemEntity p WHERE p.id = :id"),
+    @NamedQuery(name = "PurchaseitemEntity.findByProductno", query = "SELECT p FROM PurchaseitemEntity p WHERE p.productno = :productno"),
+    @NamedQuery(name = "PurchaseitemEntity.findByQuantity", query = "SELECT p FROM PurchaseitemEntity p WHERE p.quantity = :quantity"),
+    @NamedQuery(name = "PurchaseitemEntity.findByUnitprice", query = "SELECT p FROM PurchaseitemEntity p WHERE p.unitprice = :unitprice"),
+    @NamedQuery(name = "PurchaseitemEntity.findByLineamount", query = "SELECT p FROM PurchaseitemEntity p WHERE p.lineamount = :lineamount"),
+    @NamedQuery(name = "PurchaseitemEntity.findByDescription", query = "SELECT p FROM PurchaseitemEntity p WHERE p.description = :description")})
 public class PurchaseitemEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,6 +41,9 @@ public class PurchaseitemEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 50)
+    @Column(name = "productno")
+    private String productno;
     @Column(name = "quantity")
     private Long quantity;
     @Column(name = "unitprice")
@@ -49,9 +53,6 @@ public class PurchaseitemEntity implements Serializable {
     @Size(max = 90)
     @Column(name = "description")
     private String description;
-    @JoinColumn(name = "productid", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private ProductEntity productid;
     @JoinColumn(name = "purchaseid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private PurchaseEntity purchaseid;
@@ -69,6 +70,14 @@ public class PurchaseitemEntity implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getProductno() {
+        return productno;
+    }
+
+    public void setProductno(String productno) {
+        this.productno = productno;
     }
 
     public Long getQuantity() {
@@ -103,14 +112,6 @@ public class PurchaseitemEntity implements Serializable {
         this.description = description;
     }
 
-    public ProductEntity getProductid() {
-        return productid;
-    }
-
-    public void setProductid(ProductEntity productid) {
-        this.productid = productid;
-    }
-
     public PurchaseEntity getPurchaseid() {
         return purchaseid;
     }
@@ -141,7 +142,7 @@ public class PurchaseitemEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ch.hslu.enapp.webshop.entity.entities.Purchaseitem[ id=" + id + " ]";
+        return "ch.hslu.enapp.webshop.entity.entities.PurchaseitemEntity[ id=" + id + " ]";
     }
     
 }

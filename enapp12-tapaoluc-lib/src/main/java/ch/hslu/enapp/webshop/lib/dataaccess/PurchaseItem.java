@@ -75,7 +75,7 @@ public class PurchaseItem {
     
     @Override
     public String toString() {
-        return "PurchaseItem{" + "quantity=" + quantity + ", description=" + description + '}';
+        return "PurchaseItem: " + productNo + " {" + "quantity=" + quantity + ", description=" + description + '}';
     }
 
     public String geTotalPriceAsString() {

@@ -59,7 +59,7 @@ public class PostinancePaymentTest {
         
         String expected;
         expected = "AMOUNT=100hslu!comp@ny.websh0pCARDNO=4111111111111111hslu!comp@ny.websh0pCURRENCY=CHFhslu!comp@ny.websh0pCVC=123hslu!comp@ny.websh0pED=12/16hslu!comp@ny.websh0pOPERATION=REShslu!comp@ny.websh0pORDERID=1234865432hslu!comp@ny.websh0pPSPID=HSLUiCompanyhslu!comp@ny.websh0pPSWD=Mb%*3Kt9BUhslu!comp@ny.websh0pUSERID=enappstudentshslu!comp@ny.websh0p";
-         
+        
         assertEquals(expected, toHash);
     }
 

@@ -5,6 +5,7 @@
 package ch.hslu.enapp.webshop.lib.boundary;
 
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
+import ch.hslu.enapp.webshop.lib.exceptions.BusinessException;
 import ch.hslu.enapp.webshop.lib.model.BasketContent;
 import java.util.Map;
 import javax.ejb.Local;
@@ -45,5 +46,5 @@ public interface BasketManagerLocal {
     /**
      *
      */
-    public void checkout(Map<String,String> map);
+    public void checkout(Map<String,String> map) throws BusinessException;
 }

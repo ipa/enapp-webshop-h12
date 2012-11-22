@@ -61,6 +61,7 @@ public class XMLPurchase {
         try {
             final JAXBContext context = JAXBContext.newInstance(XMLPurchase.class);
             final Marshaller marshall = context.createMarshaller();
+            marshall.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshall.marshal(this, sw);
             return sw.toString();
         } catch (JAXBException ex) {

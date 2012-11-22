@@ -24,7 +24,7 @@
                         <tr>
                             <td>#{item.datetime}</td>
                             <td>#{item.status}</td>
-                            <td>#{item.corrid}</td>
+                            <td><a href="http://10.29.3.152/ENAPPDaemon-war/resources/salesorder/corr/#{item.corrid}">#{item.corrid}</a></td>
                             <td>
                                 <ul>
                                     <c:forEach items="#{item.purchaseItems}" var="pitem">

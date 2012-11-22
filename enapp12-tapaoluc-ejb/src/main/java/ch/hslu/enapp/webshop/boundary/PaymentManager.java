@@ -5,14 +5,16 @@
 package ch.hslu.enapp.webshop.boundary;
 
 import ch.hslu.enapp.webshop.lib.boundary.PaymentManagerLocal;
+import ch.hslu.enapp.webshop.lib.exceptions.PaymentUnsuccessfulException;
 import ch.hslu.enapp.webshop.payment.common.PaymentLocal;
 import ch.hslu.enapp.webshop.payment.postfinance.PostfinancePayment;
 import ch.hsu.enapp.webshop.payment.model.CreditCardPayment;
 import ch.hsu.enapp.webshop.payment.model.PaymentResponse;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 /**
  *
@@ -29,7 +31,8 @@ public class PaymentManager implements PaymentManagerLocal {
     }
     
     @Override
-    public String pay(Map<String, String> map, long amount, String orderid) {        
+    public PaymentResponse pay(Map<String, String> map, long amount, String orderid)
+            throws PaymentUnsuccessfulException {        
         // check if map has the necessary stuff
         if(!map.containsKey(PARAM_CARDNO) || !map.containsKey(PARAM_CVC) || !map.containsKey(PARAM_ED)){
             throw new EJBException("not all parameters set");
@@ -44,13 +47,11 @@ public class PaymentManager implements PaymentManagerLocal {
         pay.setAmount((int)amount);
         pay.setOrderid(orderid);
         
-        PaymentResponse response = this.pl.sendPayment(pay);
+        PaymentResponse response = (PaymentResponse)this.pl.sendPayment(pay);
         
-        if(response.isSuccess()){
-            return response.getPaymentid();
-        } else {
-            return null;
+        if(!response.isSuccess()){
+            throw new PaymentUnsuccessfulException(response.getMessage());
         }
-        
+        return response;
     }
 }

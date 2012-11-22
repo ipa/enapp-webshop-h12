@@ -18,6 +18,8 @@ import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseDAOLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.PurchaseItem;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -51,15 +53,19 @@ public class PurchaseDAO implements PurchaseDAOLocal {
         List<PurchaseitemEntity> list = new LinkedList<PurchaseitemEntity>();
         for(PurchaseItem pi : purchase.getPurchaseItems()){
             PurchaseitemEntity e = mapper.map(pi, PurchaseitemEntity.class);
-            ProductEntity pe = new ProductEntity(pi.getProductid());
-            e.setProductid(pe);
+            //ProductEntity pe = new ProductEntity(pi.getProductid());
+            //e.setProductid(pe);
             e.setPurchaseid(entity);
             list.add(e);
         }
         
         entity.setPurchaseitemCollection(list);
         
-        this.pfl.create(entity);
+        try{
+            this.pfl.create(entity);
+        }catch(Exception ex){
+            Logger.getGlobal().log(Level.WARNING, ex.toString());
+        }
     }
     
     @Override

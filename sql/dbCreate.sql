@@ -28,7 +28,7 @@ CREATE TABLE `enappwebshop`.`purchase` (
   `customerid` INTEGER UNSIGNED NOT NULL,
   `datetime` DATETIME COMMENT 'Date / Time of purchase',
   `status` VARCHAR(15) COMMENT 'state of purchase',
-  `corrrid` VARCHAR(50) COMMENT 'correlation id',
+  `corrid` VARCHAR(50) COMMENT 'correlation id',
   PRIMARY KEY (`id`),
 foreign key (`customerid`) 
 	references `customer` (`id`)
@@ -37,16 +37,14 @@ foreign key (`customerid`)
 CREATE TABLE `enappwebshop`.`purchaseitem` (
   `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `purchaseid` INTEGER UNSIGNED NOT NULL,
-  `productid` INTEGER UNSIGNED NOT NULL,
+  `productno` VARCHAR(50) NULL,
   `quantity` DECIMAL COMMENT 'by a mp3 shop, generally one',
   `unitprice` DECIMAL,
   `lineamount` DECIMAL COMMENT 'total cost per line',
   `description` VARCHAR(90) COMMENT 'line description f.e. a comment',
   PRIMARY KEY (`id`),
 foreign key (`purchaseid`)
-	references `purchase` (`id`),
-foreign key (`productid`)
-	references `product` (`id`)
+	references `purchase` (`id`)
 );
 
 -- GROUPS

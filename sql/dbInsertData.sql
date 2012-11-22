@@ -30,10 +30,10 @@ VALUES(2, 'donny','donny','Donny','somewhere','donny@duderino.ch');
 -- insert a purchase with items
 INSERT INTO purchase(id,customerid,datetime,status)
 VALUES(1,1,now(), 'New');
-INSERT INTO purchaseitem(purchaseid,productid,quantity,unitprice,lineamount,description)
-VALUES(1,1,3,1,4,'some music...');
-INSERT INTO purchaseitem(purchaseid,productid,quantity,unitprice,lineamount,description)
-VALUES(1,3,3,1,4,'some music...');
+INSERT INTO purchaseitem(purchaseid,quantity,unitprice,lineamount,description,productno)
+VALUES(1,3,1,4,'some music...','A100123');
+INSERT INTO purchaseitem(purchaseid,quantity,unitprice,lineamount,description,productno)
+VALUES(1,3,1,4,'some music...','A10002');
 
 INSERT INTO customergroups (username, groupname)
 VALUES ('dude', 'users');

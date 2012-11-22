@@ -4,6 +4,7 @@
  */
 package ch.hslu.enapp.webshop.lib.boundary;
 
+import ch.hslu.enapp.webshop.lib.exceptions.PaymentUnsuccessfulException;
 import java.util.Map;
 import javax.ejb.Local;
 
@@ -18,5 +19,5 @@ public interface PaymentManagerLocal {
     public final String PARAM_CVC = "cvc";
     public final String PARAM_ED = "ed";
     
-    String pay(Map<String, String> map, long amount, String orderid);
+    Object pay(Map<String, String> map, long amount, String orderid) throws PaymentUnsuccessfulException;
 }

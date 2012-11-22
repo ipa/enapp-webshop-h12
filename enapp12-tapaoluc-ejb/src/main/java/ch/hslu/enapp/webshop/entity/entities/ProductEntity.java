@@ -5,9 +5,7 @@
 package ch.hslu.enapp.webshop.entity.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,12 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,12 +26,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "product")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM ProductEntity p"),
-    @NamedQuery(name = "Product.findById", query = "SELECT p FROM ProductEntity p WHERE p.id = :id"),
-    @NamedQuery(name = "Product.findByName", query = "SELECT p FROM ProductEntity p WHERE p.name = :name"),
-    @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM ProductEntity p WHERE p.description = :description"),
-    @NamedQuery(name = "Product.findByMediapath", query = "SELECT p FROM ProductEntity p WHERE p.mediapath = :mediapath"),
-    @NamedQuery(name = "Product.findByUnitprice", query = "SELECT p FROM ProductEntity p WHERE p.unitprice = :unitprice")})
+    @NamedQuery(name = "ProductEntity.findAll", query = "SELECT p FROM ProductEntity p"),
+    @NamedQuery(name = "ProductEntity.findById", query = "SELECT p FROM ProductEntity p WHERE p.id = :id"),
+    @NamedQuery(name = "ProductEntity.findByName", query = "SELECT p FROM ProductEntity p WHERE p.name = :name"),
+    @NamedQuery(name = "ProductEntity.findByDescription", query = "SELECT p FROM ProductEntity p WHERE p.description = :description"),
+    @NamedQuery(name = "ProductEntity.findByMediapath", query = "SELECT p FROM ProductEntity p WHERE p.mediapath = :mediapath"),
+    @NamedQuery(name = "ProductEntity.findByUnitprice", query = "SELECT p FROM ProductEntity p WHERE p.unitprice = :unitprice")})
 public class ProductEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,8 +52,6 @@ public class ProductEntity implements Serializable {
     private String mediapath;
     @Column(name = "unitprice")
     private Long unitprice;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productid")
-    private Collection<PurchaseitemEntity> purchaseitemCollection;
 
     public ProductEntity() {
     }
@@ -111,15 +105,6 @@ public class ProductEntity implements Serializable {
         this.unitprice = unitprice;
     }
 
-    @XmlTransient
-    public Collection<PurchaseitemEntity> getPurchaseitemCollection() {
-        return purchaseitemCollection;
-    }
-
-    public void setPurchaseitemCollection(Collection<PurchaseitemEntity> purchaseitemCollection) {
-        this.purchaseitemCollection = purchaseitemCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -142,7 +127,7 @@ public class ProductEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ch.hslu.enapp.webshop.entity.entities.Product[ id=" + id + " ]";
+        return "ch.hslu.enapp.webshop.entity.entities.ProductEntity[ id=" + id + " ]";
     }
     
 }

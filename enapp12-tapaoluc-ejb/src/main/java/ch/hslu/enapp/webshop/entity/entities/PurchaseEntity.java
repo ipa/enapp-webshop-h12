@@ -7,6 +7,7 @@ package ch.hslu.enapp.webshop.entity.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,10 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "purchase")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Purchase.findAll", query = "SELECT p FROM PurchaseEntity p"),
-    @NamedQuery(name = "Purchase.findById", query = "SELECT p FROM PurchaseEntity p WHERE p.id = :id"),
-    @NamedQuery(name = "Purchase.findByDatetime", query = "SELECT p FROM PurchaseEntity p WHERE p.datetime = :datetime"),
-    @NamedQuery(name = "Purchase.findByStatus", query = "SELECT p FROM PurchaseEntity p WHERE p.status = :status")})
+    @NamedQuery(name = "PurchaseEntity.findAll", query = "SELECT p FROM PurchaseEntity p"),
+    @NamedQuery(name = "PurchaseEntity.findById", query = "SELECT p FROM PurchaseEntity p WHERE p.id = :id"),
+    @NamedQuery(name = "PurchaseEntity.findByDatetime", query = "SELECT p FROM PurchaseEntity p WHERE p.datetime = :datetime"),
+    @NamedQuery(name = "PurchaseEntity.findByStatus", query = "SELECT p FROM PurchaseEntity p WHERE p.status = :status"),
+    @NamedQuery(name = "PurchaseEntity.findByCorrid", query = "SELECT p FROM PurchaseEntity p WHERE p.corrid = :corrid")})
 public class PurchaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,15 +53,14 @@ public class PurchaseEntity implements Serializable {
     @Size(max = 15)
     @Column(name = "status")
     private String status;
-    
+    @Size(max = 50)
     @Column(name = "corrid")
     private String corrid;
-    
     @JoinColumn(name = "customerid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private CustomerEntity customerid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchaseid")
-    private Collection<PurchaseitemEntity> purchaseitemCollection;
+    private Collection<PurchaseitemEntity> purchaseitemEntityCollection;
 
     public PurchaseEntity() {
     }
@@ -92,6 +93,14 @@ public class PurchaseEntity implements Serializable {
         this.status = status;
     }
 
+    public String getCorrid() {
+        return corrid;
+    }
+
+    public void setCorrid(String corrid) {
+        this.corrid = corrid;
+    }
+
     public CustomerEntity getCustomerid() {
         return customerid;
     }
@@ -100,21 +109,13 @@ public class PurchaseEntity implements Serializable {
         this.customerid = customerid;
     }
 
-    public String getCorrid() {
-        return corrid;
-    }
-
-    public void setCorrid(String corrid) {
-        this.corrid = corrid;
-    }
-    
     @XmlTransient
-    public Collection<PurchaseitemEntity> getPurchaseitemCollection() {
-        return purchaseitemCollection;
+    public Collection<PurchaseitemEntity> getPurchaseitemEntityCollection() {
+        return purchaseitemEntityCollection;
     }
 
-    public void setPurchaseitemCollection(Collection<PurchaseitemEntity> purchaseitemCollection) {
-        this.purchaseitemCollection = purchaseitemCollection;
+    public void setPurchaseitemEntityCollection(Collection<PurchaseitemEntity> purchaseitemEntityCollection) {
+        this.purchaseitemEntityCollection = purchaseitemEntityCollection;
     }
 
     @Override
@@ -139,7 +140,15 @@ public class PurchaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ch.hslu.enapp.webshop.entity.entities.Purchase[ id=" + id + " ]";
+        return "ch.hslu.enapp.webshop.entity.entities.PurchaseEntity[ id=" + id + " ]";
+    }
+
+    public void setPurchaseitemCollection(Collection<PurchaseitemEntity> list) {
+        this.purchaseitemEntityCollection = list;
+    }
+
+    public Collection<PurchaseitemEntity> getPurchaseitemCollection() {
+        return this.purchaseitemEntityCollection;
     }
     
 }

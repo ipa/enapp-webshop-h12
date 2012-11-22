@@ -30,13 +30,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "customer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM CustomerEntity c"),
-    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM CustomerEntity c WHERE c.id = :id"),
-    @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM CustomerEntity c WHERE c.username = :username"),
-    @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM CustomerEntity c WHERE c.password = :password"),
-    @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM CustomerEntity c WHERE c.name = :name"),
-    @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM CustomerEntity c WHERE c.address = :address"),
-    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM CustomerEntity c WHERE c.email = :email")})
+    @NamedQuery(name = "CustomerEntity.findAll", query = "SELECT c FROM CustomerEntity c"),
+    @NamedQuery(name = "CustomerEntity.findById", query = "SELECT c FROM CustomerEntity c WHERE c.id = :id"),
+    @NamedQuery(name = "CustomerEntity.findByUsername", query = "SELECT c FROM CustomerEntity c WHERE c.username = :username"),
+    @NamedQuery(name = "CustomerEntity.findByPassword", query = "SELECT c FROM CustomerEntity c WHERE c.password = :password"),
+    @NamedQuery(name = "CustomerEntity.findByName", query = "SELECT c FROM CustomerEntity c WHERE c.name = :name"),
+    @NamedQuery(name = "CustomerEntity.findByAddress", query = "SELECT c FROM CustomerEntity c WHERE c.address = :address"),
+    @NamedQuery(name = "CustomerEntity.findByEmail", query = "SELECT c FROM CustomerEntity c WHERE c.email = :email")})
 public class CustomerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,7 +63,7 @@ public class CustomerEntity implements Serializable {
     @Column(name = "email")
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerid")
-    private Collection<PurchaseEntity> purchaseCollection;
+    private Collection<PurchaseEntity> purchaseEntityCollection;
 
     public CustomerEntity() {
     }
@@ -126,12 +126,12 @@ public class CustomerEntity implements Serializable {
     }
 
     @XmlTransient
-    public Collection<PurchaseEntity> getPurchaseCollection() {
-        return purchaseCollection;
+    public Collection<PurchaseEntity> getPurchaseEntityCollection() {
+        return purchaseEntityCollection;
     }
 
-    public void setPurchaseCollection(Collection<PurchaseEntity> purchaseCollection) {
-        this.purchaseCollection = purchaseCollection;
+    public void setPurchaseEntityCollection(Collection<PurchaseEntity> purchaseEntityCollection) {
+        this.purchaseEntityCollection = purchaseEntityCollection;
     }
 
     @Override
@@ -156,7 +156,7 @@ public class CustomerEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ch.hslu.enapp.webshop.entity.entities.Customer[ id=" + id + " ]";
+        return "ch.hslu.enapp.webshop.entity.entities.CustomerEntity[ id=" + id + " ]";
     }
     
 }
