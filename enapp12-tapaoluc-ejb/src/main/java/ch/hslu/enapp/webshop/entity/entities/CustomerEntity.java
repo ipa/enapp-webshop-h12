@@ -62,6 +62,8 @@ public class CustomerEntity implements Serializable {
     @Size(max = 90)
     @Column(name = "email")
     private String email;
+    @Column(name = "navcustomerno")
+    private String navCustomerNo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerid")
     private Collection<PurchaseEntity> purchaseEntityCollection;
 
@@ -125,6 +127,14 @@ public class CustomerEntity implements Serializable {
         this.email = email;
     }
 
+    public String getNavCustomerNo() {
+        return navCustomerNo;
+    }
+
+    public void setNavCustomerNo(String navCustomerNo) {
+        this.navCustomerNo = navCustomerNo;
+    }
+    
     @XmlTransient
     public Collection<PurchaseEntity> getPurchaseEntityCollection() {
         return purchaseEntityCollection;

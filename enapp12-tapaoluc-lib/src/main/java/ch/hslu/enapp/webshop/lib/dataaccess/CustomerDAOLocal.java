@@ -19,5 +19,9 @@ public interface CustomerDAOLocal {
     public Customer getCustomerById(int id);
 
     Customer getCustomerByName(final String name);
+
+    String getCustomerNoFromEnappDeamon(String corrid);
+
+    void saveCustomer(Customer customer);
     
 }

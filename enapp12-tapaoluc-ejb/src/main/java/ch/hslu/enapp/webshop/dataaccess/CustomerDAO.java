@@ -59,9 +59,22 @@ public class CustomerDAO implements CustomerDAOLocal {
         return null;
     }
     
+    @Override
+    public String getCustomerNoFromEnappDeamon(String corrid) {
+        return "";
+        //throw new NotImplementedException();
+    }
+    
+    @Override
+    public void saveCustomer(Customer customer) {
+         ModelMapper mapper = new ModelMapper();
+         CustomerEntity ce; // = this.cf.getCustomerById(customer.getId());
+         ce = mapper.map(customer, CustomerEntity.class);
+         this.cf.edit(ce);
+    }
+    
     /** Just for UnitTests **/
     void setCustomerFacade(final CustomerFacadeLocal facade){
         this.cf = facade;
     }
-
 }

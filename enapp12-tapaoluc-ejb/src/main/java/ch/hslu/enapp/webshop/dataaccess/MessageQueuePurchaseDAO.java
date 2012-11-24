@@ -44,7 +44,11 @@ public class MessageQueuePurchaseDAO implements PurchaseDAOLocal {
 
     @Override
     public List<Purchase> getPurchaseByCustomer(Customer customer) {
-        return this.dao.getPurchaseByCustomer(customer);
+        List<Purchase> purchases = this.dao.getPurchaseByCustomer(customer);
+        
+        
+        
+        return purchases;
     }
     
 }

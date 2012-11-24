@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <div class="hero-unit">
+                    <h1>Welcome to ENAPP Webshop - Admin</h1>
+                    <p>lorem ipsum dolor...</p>
+                </div>
+                <h2>Customer Admin</h2>
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="#{customeradmin.customers}" var="customer">
+                            <tr>
+                                <td>#{customer.id}</td>
+                                <td>#{customer.name}</td>
+                                <td>#{customer.email}</td>
+                                <td>
+                                    <a href="#myModal-#{customer.id}" role="button" class="btn" data-toggle="modal">Edit</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+                <!-- Modal Forms  -->
+                <c:forEach items="#{customeradmin.customers}" var="customer">
+                    <div id="myModal-#{customer.id}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Customer: #{customer.name}</h3>
+                        </div>
+
+                        <h:form class="form-horizontal">
+                            <div class="modal-body">
+                                <div class="control-group">
+                                    <h:outputLabel class="control-label" for="inputName">Name</h:outputLabel>
+                                    <div class="controls">
+                                        <h:inputText id="inputName" value="#{customer.name}" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h:outputLabel class="control-label" for="inputEmail">Email</h:outputLabel>
+                                    <div class="controls">
+                                        <h:inputText id="inputEmail" value="#{customer.email}" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h:outputLabel class="control-label" for="inputAdr">Address</h:outputLabel>
+                                    <div class="controls">
+                                        <h:inputTextarea id="inputAdr" value="#{customer.address}" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h:outputLabel class="control-label" for="inputNav">DynNav No</h:outputLabel>
+                                    <div class="controls">
+                                        <h:inputText id="inputNav" value="#{customer.navCustomerNo}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <h:commandButton action="#{customeradmin.saveCustomer(customer.id)}" class="btn btn-primary" value="Save" />
+                            </div>
+                        </h:form>
+                    </div>
+                </c:forEach>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

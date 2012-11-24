@@ -20,6 +20,7 @@ CREATE TABLE `enappwebshop`.`customer` (
   `name` VARCHAR(45),
   `address` VARCHAR(45),
   `email` VARCHAR(90),
+  `navcustomerno` VARCHAR(30),
   PRIMARY KEY (`id`)
 );
  

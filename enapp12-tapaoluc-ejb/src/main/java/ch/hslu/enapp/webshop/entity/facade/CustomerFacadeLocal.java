@@ -29,4 +29,5 @@ public interface CustomerFacadeLocal extends AbstractFacadeLocal<CustomerEntity>
 
     int count();
     
+    CustomerEntity getCustomerById(Integer id);
 }

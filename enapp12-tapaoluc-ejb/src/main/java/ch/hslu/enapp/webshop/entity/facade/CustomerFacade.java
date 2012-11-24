@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -30,4 +31,9 @@ public class CustomerFacade extends AbstractFacade<CustomerEntity> implements Cu
         super(CustomerEntity.class);
     }
     
+    public CustomerEntity getCustomerById(Integer id){
+        Query query = this.getEntityManager().createNamedQuery("CustomerEntity.findById");
+        query.setParameter(":id", id);
+        return (CustomerEntity)query.getResultList().get(0);
+    }
 }
