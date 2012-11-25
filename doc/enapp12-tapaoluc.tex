@@ -7,8 +7,11 @@
 \usepackage{amssymb}
 \usepackage{epstopdf}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
-
-
+% listings
+\usepackage{listings}
+\usepackage{color}
+%
+%
 \begin{document}
 % document options
 \title{ENAPP 2012 - Webshop}
@@ -34,6 +37,16 @@ A short overview over the technologies used.
 \item JDBC / JPA (MySQL)
 \end{itemize}
 %
+\subsection{}Usage\\
+The application is more or less self-explanatory or should be. There are seperate users for administration and shopping. A already installed user can be used or a new one can be created. \\
+%
+\textbf{Webshop}\\
+\textsf{0160.intra015.el.campus.intern:8080/enapp12-tapaoluc-web/index.xhtml} \\
+User/Password: dude/dude\\
+%
+\textbf{Adminpanel} \\
+\textsf{0160.intra015.el.campus.intern:8080/enapp12-tapaoluc-web-admin/index.xhtml} \\
+User/Password: admin/admin \\
 \newpage{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Infrastructure
@@ -134,4 +147,53 @@ Property: stage = production \\
 % Architectural overview
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architecture}
+Below is an overview of the webshop. It is a component based architecture. All accesses to other components are done via Interfaces defined in \textsf{enapp12-tapaoluc-lib}. The general idea of this architecture is to avoid any changes in business logic when the datasource changes. For example when the purchase is sent to a JMS queue insted of stored in a relational database, in general there shouldn't be any changes insted of some annotations tellig CDI that another implementation is needed.\\
+\includegraphics[scale=0.8]{component-dia.png}\\
+Inside the EJB component a "Entity Controller Boundary" pattern is implemented. Below there is a sample from the Purchase. \\
+\includegraphics[scale=0.8]{sample-arch.png}\\
+The JSF Managed Bean accesses the PurchaseManager via the Interface PurchaseManagerLocal. The PurchaseManager has the BusinessLogic implemented and gets hist Data from PurchaseDAO via PurchaseDAOLocal. The implementations are injected via the Context and Dependency Injection. 
+\newpage{}
+In code it looks like this (this ist not the actual code but it shows the general idea):\\
+\begin{lstlisting}
+/* PurchaseMgmtBean.java (web)*/
+@Inject
+private PurchaseManagerLocal pml;
+
+public void checkoutPurchase(){
+	// collect data entered from user and send it to ejb
+	this.pml.checkoutPurchase(purchase);
+}
+
+
+/* PurchaseManager.java (ejb)*/
+@Inject
+@JMSPurchaseDAO
+private PurchaseDAOLocal dao;
+
+@Inject
+@PostfinancePayment
+private CreditCardPayment payment;
+
+private boolean anythingWentWrong;
+
+public void checkoutPurchase(Purchase purchase){
+	// do the payment
+	payment.pay();
+	// store purchase
+	dao.storePurchase(purchase);
+	// send feedback if neccesary
+	if(anythingWentWrong){
+		throw new BusinessException("something wrong");
+	}
+}
+
+
+/* PurchaseDAO (JMS impl) */
+@StatelessBean
+@JMSPurchaseDAO
+public class JMSPurchaseDataAccess implements PurchaseDAOLocal{}
+\end{lstlisting}
+\lstset{language=Java,caption={CDI},label=CDI} 
+%
+When the Interface to the Purchase service changes for example to a Rest service there is only the Annotation \textsf{@JMSPurchaseDAO} changed to \textsf{@RestPurchaseDAO} which points to the Rest implemenation.
 \end{document}
