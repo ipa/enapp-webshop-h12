@@ -6,6 +6,7 @@ DELETE FROM purchaseitem WHERE id >=0;
 DELETE FROM purchase WHERE id >=0;
 DELETE FROM product WHERE id >=0;
 DELETE FROM customer WHERE id >=0;
+DELETE FROM customergroups WHERE id >= 0;
 
 START TRANSACTION;
 
