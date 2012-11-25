@@ -5,7 +5,7 @@
   <parent>
     <groupId>ch.hslu.enapp</groupId>
     <artifactId>enapp12-tapaoluc</artifactId>
-    <version>1.2</version>
+    <version>1.2.1</version>
   </parent>
   <groupId>ch.hslu.enapp</groupId>
   <artifactId>enapp12-tapaoluc-payment</artifactId>

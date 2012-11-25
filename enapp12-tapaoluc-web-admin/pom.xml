@@ -4,7 +4,7 @@
     <parent>
     <artifactId>enapp12-tapaoluc</artifactId>
     <groupId>ch.hslu.enapp</groupId>
-    <version>1.2</version>
+    <version>1.2.1</version>
   </parent>
 
     <groupId>ch.hslu.enapp</groupId>
@@ -23,13 +23,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>enapp12-tapaoluc-lib</artifactId>
-            <version>1.2</version>
+            <version>1.2.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>enapp12-tapaoluc-ejb</artifactId>
-            <version>1.2</version>
+            <version>1.2.1</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
