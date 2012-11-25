@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.4">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.custom.PackageAggregationHierarchy</type>
+    <coordinates>
+      <x>250</x>
+      <y>130</y>
+      <w>310</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>enapp12-tapaoluc-ear
+	enapp12-tapaoluc-ejb
+		boundary
+		controller
+		dataaccess
+		entity
+	enapp12-tapaoluc-lib
+		boundary
+		dataaccess
+		model
+		exceptions
+	enapp12-tapaoluc-web
+		shop
+		secure
+	enapp12-tapaoluc-web-admin
+	enapp12-tapaoluc-navision
+	enapp12-tapaoluc-payment</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

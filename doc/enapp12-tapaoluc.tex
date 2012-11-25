@@ -195,5 +195,8 @@ public class JMSPurchaseDataAccess implements PurchaseDAOLocal{}
 \end{lstlisting}
 \lstset{language=Java,caption={CDI},label=CDI} 
 %
-When the Interface to the Purchase service changes for example to a Rest service there is only the Annotation \textsf{@JMSPurchaseDAO} changed to \textsf{@RestPurchaseDAO} which points to the Rest implemenation.
+When the Interface to the Purchase service changes for example to a Rest service there is only the Annotation \textsf{@JMSPurchaseDAO} changed to \textsf{@RestPurchaseDAO} which points to the Rest implemenation. \\
+\subsection{}Project Structure \\
+Below the structure of the project is visualized. At the end everything is packed into one EAR (Enterprise Archtive). In the \textsf{enapp12-tapaoluc-lib} project in packages boundary and dataaccess are only interfaces not implementations.\\
+\includegraphics[scale=0.7]{project-structure.png}
 \end{document}
