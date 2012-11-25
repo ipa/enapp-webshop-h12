@@ -1,0 +1,137 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+
+\begin{document}
+% document options
+\title{ENAPP 2012 - Webshop}
+\author{Iwan Paolucci}
+%
+\maketitle
+%
+%\newpage{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intro}
+In the module ENAPP.H12 a Webshop has to be developed. This documentation covers the most neccesary information and a short overview of the architecture. \\
+\subsection{}Technology\\
+A short overview over the technologies used.
+\begin{itemize}
+\item J2EE 1.6 (Java Enterprise Edition)
+\item Java 7
+\item Java Server Faces (JSF)
+\item Java Message Service (JMS)
+\item SOAP Webservices
+\item Rest Webservices
+\item JDBC / JPA (MySQL)
+\end{itemize}
+%
+\newpage{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Infrastructure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Infrastructure} 
+%
+This section covers information about the Infrastructure. \\
+%\subsection{}Development \\
+%\textbf{Database} \\
+%User: root \\
+%Password: 123 \\
+% 
+\subsection{}Integration \\
+Description of the integrationplattform in the EnterpriseLab @ HSLU.\\
+\subsubsection{}OperatingSystem \\
+Type: Solaris \\
+User: tapaoluc (EL User) \\
+root Password: ENAPP\_H12
+%
+\subsubsection{}Database \\
+Type: MySQL \\
+Server: s0160.intra015.el.campus.intern \\
+User: enapp \\
+Password: enapp 
+%
+\subsubsection{}Applicationserver \\
+Type: Glassfish 3+ \\
+Adminpanel: https://s0160.intra015.el.campus.intern:4848 \\
+User: admin \\
+Password: ENAPP\_H12 \\
+%
+\subsubsection{}/etc/hosts \\
+For the connection to the Navision service an additional entry to the hosts file is needed.\
+\begin{verbatim}
+#navision
+10.29.2.12      icompanydb01.icompany.intern
+\end{verbatim}
+%
+\subsection{Configuration}
+\subsubsection{}Database \\
+\textit{JDBC Connection Pool}\\
+Poolname: EnappWebshopTapaolucPool \\
+Resource Type: javax.sql.DataBase \\
+Datasource Classname: com.mysql.jdbc.jdbc2.optional.MysqlDataSource \\
+% additional
+\textit{Additional Properties on Connection Pool} \\
+password = enapp \\
+user = enapp \\
+servername = s0160.intra015.el.campus.intern \\
+roleName = com.mysql.jdbc.Driver \\
+datasourceName = jdbc:mysql://s0160.intra015.el.campus.intern:3306/enappwebshop \\
+databaseName = enappwebshop \\
+portNumber = 3306 \\
+%
+\textit{Ressource} \\
+JNDI Name: jdbc/enappwebshoptapaoluc \\
+Poolname: EnappWebshopTapaolucPool \\
+%
+\subsubsection{}Java Message Service \\
+\textit{Queuefactory} \\
+Poolname: jms/purchasequeuefactory \\
+Ressource Type: javax.jms.QueueConnectionFactory \\
+Transaction: XATransaction \\
+AdditionalProperty: AddressList = mq://10.29.3.152:7676/jms \\
+\textit{Queue} \\
+JNDI Name: jms/purchasequeue \\
+Physical Name: EnappQueue \\
+Resource Type: javax.jms.Queue \\
+%
+\subsubsection{}Security
+%
+\textit{Security - Realm} \\
+Configuration: server-config \\
+Realm Name: enappwebshoprealm \\
+Classname: com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm \\
+JAAS Context: jdbcRealm \\
+JNDI Name: jdbc/enappwebshoptapaoluc \\
+Usertable: customer \\
+Usercolumn: username \\
+Passwordcolumn: password \\
+Grouptable: customergroups \\
+Grouptable-Usercolumn: username \\
+Groupcolumn: groupname \\
+Digest algorithm: none \\
+Encryption algorithm: none \\
+%
+\textbf{Attention: There is no encryption so do not use your own passwords for tests!}
+%
+\subsubsection{}JNDI - Custom Ressources \\
+This setting sets the stage of the application to production. \\
+JNDI Name: javax.faces.PROJECT\_STAGE \\
+Ressource Type: java.lang.String \\
+Factory Class: org.glassfish.resources.custom.factory.PrimitivesAndStringFactory \\
+Property: stage = production \\
+%
+\newpage{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Architectural overview
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Architecture}
+\end{document}
