@@ -45,13 +45,6 @@ import javax.naming.NamingException;
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class PurchaseQueue implements MessageListener, PurchaseQueueLocal {
-    
-    //@Resource(mappedName = "jms/purchasequeuefactory")
-    //private QueueConnectionFactory connectionFactory;
-
-    //@Resource(mappedName = "jms/purchasequeue")
-    //private Queue queue;
-    
     private static final String STUDENT = "tapaoluc";
     
     public PurchaseQueue() {
@@ -137,7 +130,11 @@ public class PurchaseQueue implements MessageListener, PurchaseQueueLocal {
         XMLCustomer c = xmlObj.getCustomer();
         c.setAddress(purchase.getCustomer().getAddress());
         c.setCity("Lucerne");
-        //c.setDynNavCustNo(purchase.getCustomer().getId().toString());
+        // set dyn nav id if available
+        if(purchase.getCustomer().getNavCustomerNo() != null &&
+                !purchase.getCustomer().getNavCustomerNo().isEmpty()){
+            c.setDynNavCustNo(purchase.getCustomer().getNavCustomerNo());
+        }
         c.setName(purchase.getCustomer().getName() + " " + purchase.getCustomer().getName());
         c.setPostCode("6003");
         c.setShopLoginname(purchase.getCustomer().getUsername());

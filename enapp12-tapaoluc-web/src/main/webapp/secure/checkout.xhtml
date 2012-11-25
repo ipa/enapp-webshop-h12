@@ -10,24 +10,24 @@
                     template="../template/template.xhtml">
         <ui:define name="content">
             <h2>Checkout</h2>
-            <div  class="hero-unit">
+            <div class="hero-unit">
                 <table class="table table-hover table-condensed">
                     <thead>
                         <th>Product</th>
+                        <th>Product No</th>
                         <th>Amount</th>
-                        <th></th>
                     </thead>
                     <tbody>
                         <c:forEach items="#{basket.basketContent().items}" var="item">
                             <tr>
                                 <td>#{item.product.name}</td>
+                                <td>#{item.product.number}</td>
                                 <td>#{item.amount}</td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
-            </div>
-            <div class="hero-unit">
+                
                 <ui:fragment rendered="#{basket.messageIsSet('paymessage')}">
                     <div class="alert alert-error">
                         <h:message id="paymessage" for="paymessage" />
@@ -39,35 +39,59 @@
                         <h:message id="paysuccess" for="paysuccess" />
                     </div>
                 </ui:fragment>
-                <br></br>
+                
+                <ui:fragment rendered="#{basket.hasNoProducts()}">
+                    <div class="alert alert-warn">   
+                        <label>Nothing to checkout</label>
+                    </div>
+                </ui:fragment>
+                
+                <ui:fragment rendered="#{basket.hasProducts()}">
+                    <div>
+                        <a href="#modalCheckout" role="button" class="btn btn-primary" data-toggle="modal">Checkout</a>
+                    </div>
+                </ui:fragment>
+                
+            </div>
+            <div  id="modalCheckout" class="modal hide fade" tabindex="-1" 
+                  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Payment</h3>
+                </div>
                 <h:form class="form-horizontal">
-                    <div class="control-group">
-                        <h:outputLabel class="control-label" for="cardno" value="Credit Card"/>
-                        <div class="controls">
-                            <h:inputText id="cardno" value="#{basket.cardno}"/>
+                    <div class="modal-body">
+                        <div class="control-group">
+                            <h:outputLabel class="control-label" for="cardno" value="Credit Card"/>
+                            <div class="controls">
+                                <h:inputText id="cardno" value="#{basket.cardno}"/>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="control-group">
-                        <h:outputLabel class="control-label" for="cvc"  value="CVC"/>
-                        <div class="controls">
-                            <h:inputText id="cvc" value="#{basket.cvc}"/>
+                        <div class="control-group">
+                            <h:outputLabel class="control-label" for="cvc"  value="CVC"/>
+                            <div class="controls">
+                                <h:inputText id="cvc" value="#{basket.cvc}"/>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="control-group">
-                        <h:outputLabel class="control-label" for="ed"  value="Expire Date"/>
-                        <div class="controls">
-                            <h:inputText id="ed" value="#{basket.ed}"/>
+                        <div class="control-group">
+                            <h:outputLabel class="control-label" for="ed"  value="Expire Date"/>
+                            <div class="controls">
+                                <h:inputText id="ed" value="#{basket.ed}"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <h:commandButton class="btn btn-primary" action="#{basket.checkout()}" value="Checkout"/>
+                    <div class="modal-footer">
+                        <div class="control-group">
+                            <div class="controls">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <h:commandButton class="btn btn-primary" action="#{basket.checkout()}" value="Confirm"/>
+                            </div>
                         </div>
                     </div>
                 </h:form>
-            </div>
+             </div>
         </ui:define>
     </ui:composition>
 </html> 

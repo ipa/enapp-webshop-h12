@@ -18,5 +18,7 @@ public interface CustomerManagerLocal {
     void saveCustomer(Customer customer);
 
     List<Customer> getCustomers();
+
+    Customer getCustomerByUsername(String username);
     
 }

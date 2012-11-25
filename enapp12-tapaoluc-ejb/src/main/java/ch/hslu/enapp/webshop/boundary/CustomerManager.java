@@ -30,4 +30,10 @@ public class CustomerManager implements CustomerManagerLocal {
     public List<Customer> getCustomers() {
         return this.dao.getCustomers();
     }
+
+    @Override
+    public Customer getCustomerByUsername(String username) {
+        Customer customer = dao.getCustomerByName(username);
+        return customer;
+    }
 }

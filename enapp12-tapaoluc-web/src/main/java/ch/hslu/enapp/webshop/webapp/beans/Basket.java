@@ -119,5 +119,11 @@ public class Basket implements Serializable {
         this.ed = ed;
     }
     
+    public boolean hasProducts(){
+        return this.numberOfProducts() > 0;
+    }
     
+    public boolean hasNoProducts(){
+        return this.numberOfProducts() <= 0;
+    }
 }

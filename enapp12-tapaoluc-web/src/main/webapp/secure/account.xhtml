@@ -10,36 +10,90 @@
                     template="../template/template.xhtml">
         <ui:define name="content">
             <h2>Account</h2>
-
-            <h3>Purchases</h3>
-            <table class="table table-hover table-condensed">
-                <thead>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Correlation id</th>
-                    <th>Items</th>
-                </thead>
-                <tbody>
-                    <c:forEach items="#{account.purchases}" var="item">
-                        <tr>
-                            <td>#{item.datetime}</td>
-                            <td>#{item.status}</td>
-                            <td><a href="http://10.29.3.152/ENAPPDaemon-war/resources/salesorder/corr/#{item.corrid}">#{item.corrid}</a></td>
-                            <td>
-                                <ul>
-                                    <c:forEach items="#{item.purchaseItems}" var="pitem">
-                                        <li>#{pitem.toString()}</li>
-                                    </c:forEach>
-                                </ul>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+            <div  class="hero-unit">
+                <h3>Purchases</h3>
+                <h:form>
+                    <h:commandButton class="btn" action="#{account.refreshStates()}" value="Refresh States" />
+                </h:form>
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Nav Status</th>
+                        <th>Items</th>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="#{account.getPurchases()}" var="item">
+                            <tr>
+                                <td>#{item.datetime}</td>
+                                <td>#{item.status}</td>
+                                <td><a href="http://10.29.3.152/ENAPPDaemon-war/resources/salesorder/corr/#{item.corrid}">#{item.navStatus}</a></td>
+                                <td>
+                                    <ul>
+                                        <c:forEach items="#{item.purchaseItems}" var="pitem">
+                                            <li>#{pitem.toString()}</li>
+                                        </c:forEach>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
             
-            <h:form>
-                <h:commandButton class="btn btn-primary"  action="#{basket.checkout()}" value="Checkout" />
-            </h:form>
+            <c:set var="customer" value="#{account.getCustomer()}" />
+            <div class="hero-unit">
+                <h3>Account Information</h3>
+                <address>
+                    <strong><h:outputText value="#{customer.name}"/></strong><br />
+                    <h:outputText value="#{customer.address}"/><br />
+                    <a href="mailto:#" >#{customer.email}</a>
+                </address>
+                <div>
+                    <a href="#myModal-#{customer.id}" role="button" class="btn" data-toggle="modal">Edit Account</a>
+                </div>
+            </div>
+            <!-- Modal -->
+            
+            <div id="myModal-#{customer.id}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Customer: #{customer.name}</h3>
+                        </div>
+
+                        <h:form class="form-horizontal">
+                            <div class="modal-body">
+                                <div class="control-group">
+                                    <h:outputLabel class="control-label" for="inputName">Name</h:outputLabel>
+                                    <div class="controls">
+                                        <h:inputText id="inputName" value="#{customer.name}" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h:outputLabel class="control-label" for="inputEmail">Email</h:outputLabel>
+                                    <div class="controls">
+                                        <h:inputText id="inputEmail" value="#{customer.email}" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h:outputLabel class="control-label" for="inputAdr">Address</h:outputLabel>
+                                    <div class="controls">
+                                        <h:inputTextarea id="inputAdr" value="#{customer.address}" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h:outputLabel class="control-label" for="inputNav">DynNav No</h:outputLabel>
+                                    <div class="controls">
+                                        <h:inputText id="inputNav" value="#{customer.navCustomerNo}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <h:commandButton action="#{account.saveCustomer(customer)}" class="btn btn-primary" value="Save" />
+                            </div>
+                        </h:form>
+                    </div>
         </ui:define>
     </ui:composition>
 </html> 

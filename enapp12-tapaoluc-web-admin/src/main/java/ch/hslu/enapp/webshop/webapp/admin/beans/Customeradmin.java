@@ -52,13 +52,13 @@ public class Customeradmin {
         this.customers = customers;
     }
     
-    public void saveCustomer(String customer){
-        Integer id = Integer.parseInt(customer);
+    public void saveCustomer(Customer customer){
+        /*Integer id = Integer.parseInt(customer);
         Customer search = new Customer();
         search.setId(id);
         int idx = Collections.binarySearch(customers, search, new Customer().getCustomerComparator());
         Customer found = this.customers.get(idx);
-        
-        this.cml.saveCustomer(found);
+        */
+        this.cml.saveCustomer(customer);
     }
 }

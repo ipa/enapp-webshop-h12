@@ -4,6 +4,7 @@
  */
 package ch.hslu.enapp.webshop.boundary;
 
+import ch.hslu.enapp.webshop.lib.boundary.CustomerManagerLocal;
 import ch.hslu.enapp.webshop.lib.boundary.PurchaseManagerLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
 import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
@@ -38,7 +39,8 @@ public class PurchaseManager implements PurchaseManagerLocal {
     public void savePurchase(final Purchase purchase) {
         dao.savePurchase(purchase);
         
-        CustomerUpdater updater = new CustomerUpdater(purchase.getCorrid(), purchase.getCustomer().getUsername());
+        CustomerUpdater updater = new CustomerUpdater(
+                this.cdao, purchase.getCorrid(), purchase.getCustomer().getUsername());
         Thread t = new Thread(updater);
         t.start();
     }
@@ -55,27 +57,32 @@ public class PurchaseManager implements PurchaseManagerLocal {
     private class CustomerUpdater implements Runnable{
         private String corrid;
         private String cname;
-
-        public CustomerUpdater(String corrid, String cname) {
+        private CustomerDAOLocal cdao;
+        
+        public CustomerUpdater(CustomerDAOLocal cdao, String corrid, String cname) {
             this.corrid = corrid;
             this.cname = cname;
+            this.cdao = cdao;
         }
         
         @Override
         public void run() {
             try {
                 Thread.sleep(10000);
+                Logger.getGlobal().log(Level.INFO, "start updating customer:{0}", this.cname);
                 this.updateCustomer(this.corrid, this.cname);
             } catch (InterruptedException ex) {
                 Logger.getLogger(PurchaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
         private void updateCustomer(String corrid, String cname) {
             NavisionPurchaseClient client = new NavisionPurchaseClient();
             NavisionPurchaseResponse res = client.getPurchaseStatus(corrid);
 
             Customer c = cdao.getCustomerByName(cname);
             c.setNavCustomerNo(res.getDynNAVCustomerNo());
+            cdao.saveCustomer(c);
         }
     } 
 }

@@ -23,10 +23,12 @@ public class Purchase {
     private String payid;
     private String corrid;
     private String no;
+    private String navStatus;
     
     public Purchase() {
         this.purchaseItems = new LinkedList<PurchaseItem>();
         this.no = getPurchaseNo();
+        this.navStatus = "N/A";
     }
 
     private static String getPurchaseNo(){
@@ -107,4 +109,11 @@ public class Purchase {
         this.no = no;
     }
 
+    public String getNavStatus() {
+        return navStatus;
+    }
+
+    public void setNavStatus(String navStatus) {
+        this.navStatus = navStatus;
+    }
 }

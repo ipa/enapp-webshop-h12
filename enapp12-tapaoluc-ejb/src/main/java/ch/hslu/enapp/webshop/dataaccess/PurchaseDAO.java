@@ -55,6 +55,7 @@ public class PurchaseDAO implements PurchaseDAOLocal {
             PurchaseitemEntity e = mapper.map(pi, PurchaseitemEntity.class);
             //ProductEntity pe = new ProductEntity(pi.getProductid());
             //e.setProductid(pe);
+            e.setProductno(pi.getProductNo());
             e.setPurchaseid(entity);
             list.add(e);
         }
@@ -81,6 +82,7 @@ public class PurchaseDAO implements PurchaseDAOLocal {
                     pi.setDescription(pie.getDescription());
                     pi.setId(pie.getId());
                     pi.setQuantity(pie.getQuantity());
+                    pi.setProductNo(pie.getProductno());
                     p.getPurchaseItems().add(pi);
                 }
                 purchases.add(p);
