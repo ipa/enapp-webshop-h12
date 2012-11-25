@@ -5,11 +5,11 @@
   <parent>
     <groupId>ch.hslu.enapp</groupId>
     <artifactId>enapp12-tapaoluc</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
   </parent>
   <groupId>ch.hslu.enapp</groupId>
   <artifactId>enapp12-tapaoluc-lib</artifactId>
-  <version>1.1</version>
+  <version>1.2</version>
   <name>enapp12-tapaoluc-lib</name>
   <url>http://maven.apache.org</url>
   <properties>

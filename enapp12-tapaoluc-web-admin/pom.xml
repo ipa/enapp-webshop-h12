@@ -4,7 +4,7 @@
     <parent>
     <artifactId>enapp12-tapaoluc</artifactId>
     <groupId>ch.hslu.enapp</groupId>
-    <version>1.1</version>
+    <version>1.2</version>
   </parent>
 
     <groupId>ch.hslu.enapp</groupId>

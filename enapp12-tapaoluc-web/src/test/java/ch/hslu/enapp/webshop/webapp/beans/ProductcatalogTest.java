@@ -6,7 +6,6 @@ package ch.hslu.enapp.webshop.webapp.beans;
 
 import ch.hslu.enapp.webshop.boundary.ProductManager;
 import ch.hslu.enapp.webshop.dataaccess.NavisionProductDAO;
-import ch.hslu.enapp.webshop.lib.boundary.ProductManagerLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Product;
 import java.util.List;
 import org.junit.Test;
