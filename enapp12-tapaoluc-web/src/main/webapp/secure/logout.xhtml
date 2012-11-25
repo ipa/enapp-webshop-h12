@@ -9,10 +9,15 @@
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
                 <div class="hero-unit">
-                    <h1>Are you sure</h1>
-                    <h:form>
-                        <h:commandLink class="btn btn-danger" action="#{usersession.logout()}" value="Really log out" />
-                    </h:form>
+                    <h1>Are you sure?</h1>
+                    <br />
+                    <p>When you log out you will loose your basket content!</p>
+                    <br />
+                    <div class="form-horizontal">
+                        <h:form>
+                            <h:commandLink class="btn btn-danger" action="#{usersession.logout()}" value="Really log out" />
+                        </h:form>
+                    </div>
                 </div>
                 
             </ui:define>

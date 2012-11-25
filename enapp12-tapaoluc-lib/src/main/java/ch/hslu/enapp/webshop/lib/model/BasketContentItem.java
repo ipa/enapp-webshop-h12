@@ -56,6 +56,6 @@ public class BasketContentItem implements Comparable<BasketContentItem>{
     }
     
     public int compareTo(BasketContentItem o) {
-        return this.product.getId() - o.product.getId();
+        return this.getProduct().getNumber().compareTo(o.getProduct().getNumber());
     }
 }

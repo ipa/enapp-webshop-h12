@@ -7,6 +7,7 @@ package ch.hslu.enapp.webshop.boundary;
 import ch.hslu.enapp.webshop.lib.boundary.CustomerManagerLocal;
 import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
 import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
+import ch.hslu.enapp.webshop.lib.exceptions.BusinessException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -35,5 +36,10 @@ public class CustomerManager implements CustomerManagerLocal {
     public Customer getCustomerByUsername(String username) {
         Customer customer = dao.getCustomerByName(username);
         return customer;
+    }
+    
+    @Override
+    public void removeCustomer(Customer customer) throws BusinessException{
+        dao.removeCustomer(customer);
     }
 }

@@ -10,7 +10,7 @@
                     template="./template/template.xhtml">
         <ui:define name="content">
             <h1>Login</h1>
-            <p>
+            <div class="well">
                 <form class="form-horizontal" method="POST" action="login.xhtml/j_security_check" name="loginForm">
                     <div class="control-group">
                         <label class="control-label" for="inputj_username">Username</label>
@@ -24,9 +24,9 @@
                             <h:inputSecret type="password" id="j_password" placeholder="Password" />
                         </div>
                     </div>
-                    <h:commandButton type="submit" class="btn" value="Login"></h:commandButton>
+                    <h:commandButton type="submit" class="btn btn-primary" value="Login"></h:commandButton>
                 </form>
-            </p>
+            </div>
         </ui:define>
     </ui:composition>
 </html>

@@ -8,32 +8,46 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <div class="hero-unit">
-                    <h1>Welcome to ENAPP Webshop - Admin</h1>
-                    <p>lorem ipsum dolor...</p>
+                <h2>Customer Management</h2>
+                
+                <div class="well">
+                    <ui:fragment rendered="#{customeradmin.messageIsSet('custerror')}">
+                    <div class="alert alert-error">   
+                        <h:message id="custerror" for="custerror" />
+                    </div>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{customeradmin.messageIsSet('custsuccess')}">
+                        <div class="alert alert-success">   
+                            <h:message id="custsuccess" for="custsuccess" />
+                        </div>
+                    </ui:fragment>
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="#{customeradmin.customers}" var="customer">
+                                <tr>
+                                    <td>#{customer.id}</td>
+                                    <td>#{customer.name}</td>
+                                    <td>#{customer.username}</td>
+                                    <td>#{customer.email}</td>
+                                    <td>
+                                        <h:form>
+                                            <a href="#myModal-#{customer.id}" role="button" class="btn" data-toggle="modal">Edit</a>
+                                            <span/>
+                                            <h:commandLink class="btn btn-danger" action="#{customeradmin.deleteCustomer(customer)}" value="Delete" />
+                                        </h:form>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
-                <h2>Customer Admin</h2>
-                <table class="table table-hover table-condensed">
-                    <thead>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="#{customeradmin.customers}" var="customer">
-                            <tr>
-                                <td>#{customer.id}</td>
-                                <td>#{customer.name}</td>
-                                <td>#{customer.email}</td>
-                                <td>
-                                    <a href="#myModal-#{customer.id}" role="button" class="btn" data-toggle="modal">Edit</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
                 <!-- Modal Forms  -->
                 <c:forEach items="#{customeradmin.customers}" var="customer">
                     <div id="myModal-#{customer.id}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

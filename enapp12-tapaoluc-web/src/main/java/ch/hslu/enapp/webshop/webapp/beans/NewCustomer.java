@@ -58,7 +58,7 @@ public class NewCustomer implements Serializable {
         try{
             this.cml.saveCustomer(c);
             this.conversation.end();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("secure/account.xhtml");
         }catch(Exception ex){
             Logger.getGlobal().log(Level.WARNING, ex.getMessage());
         }

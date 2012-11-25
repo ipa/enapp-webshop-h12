@@ -10,7 +10,7 @@
                     template="../template/template.xhtml">
         <ui:define name="content">
             <h2>Account</h2>
-            <div  class="hero-unit">
+            <div  class="well">
                 <h3>Purchases</h3>
                 <h:form>
                     <h:commandButton class="btn" action="#{account.refreshStates()}" value="Refresh States" />
@@ -42,7 +42,7 @@
             </div>
             
             <c:set var="customer" value="#{account.getCustomer()}" />
-            <div class="hero-unit">
+            <div class="well">
                 <h3>Account Information</h3>
                 <address>
                     <strong><h:outputText value="#{customer.name}"/></strong><br />

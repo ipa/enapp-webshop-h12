@@ -5,6 +5,7 @@
 package ch.hslu.enapp.webshop.lib.boundary;
 
 import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
+import ch.hslu.enapp.webshop.lib.exceptions.BusinessException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -21,4 +22,5 @@ public interface CustomerManagerLocal {
 
     Customer getCustomerByUsername(String username);
     
+    void removeCustomer(Customer customer) throws BusinessException;
 }

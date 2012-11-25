@@ -31,9 +31,10 @@ public class CustomerFacade extends AbstractFacade<CustomerEntity> implements Cu
         super(CustomerEntity.class);
     }
     
+    @Override
     public CustomerEntity getCustomerById(Integer id){
         Query query = this.getEntityManager().createNamedQuery("CustomerEntity.findById");
-        query.setParameter(":id", id);
+        query.setParameter("id", id);
         return (CustomerEntity)query.getResultList().get(0);
     }
 }

@@ -4,6 +4,7 @@
  */
 package ch.hslu.enapp.webshop.lib.dataaccess;
 
+import ch.hslu.enapp.webshop.lib.exceptions.BusinessException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,14 +15,16 @@ import javax.ejb.Local;
 @Local
 public interface CustomerDAOLocal {
 
-    public List<Customer> getCustomers();
+    List<Customer> getCustomers();
     
-    public Customer getCustomerById(int id);
+    Customer getCustomerById(int id);
 
     Customer getCustomerByName(final String name);
 
     String getCustomerNoFromEnappDeamon(String corrid);
 
     void saveCustomer(Customer customer);
+
+    void removeCustomer(Customer customer) throws BusinessException;
     
 }

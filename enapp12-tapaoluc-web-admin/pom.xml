@@ -23,13 +23,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>enapp12-tapaoluc-lib</artifactId>
-            <version>1.1</version>
+            <version>1.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>enapp12-tapaoluc-ejb</artifactId>
-            <version>1.1</version>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

@@ -10,7 +10,7 @@
                     template="./template/template.xhtml">
         <ui:define name="content">
             <h2>Basket</h2>
-            <div class="hero-unit">
+            <div class="well">
                 <h3>
                     # of Products: #{basket.numberOfProducts()}
                 </h3>
@@ -28,8 +28,11 @@
                                 <td>#{item.amount}</td>
                                 <td>
                                     <h:form>
-                                        <h:commandButton type="button" class="btn"  action="#{basket.removeProduct()}" value="-">
-                                            <f:param name="productid" value="#{item.product.id}" />
+                                        <h:commandButton type="button" class="btn"  action="#{basket.addProduct()}" value="+">
+                                            <f:param name="productid" value="#{item.product.number}" />
+                                        </h:commandButton>
+                                        <h:commandButton type="button" class="btn btn-warning"  action="#{basket.removeProduct()}" value="-">
+                                            <f:param name="productid" value="#{item.product.number}" />
                                         </h:commandButton>
                                     </h:form>
                                 </td>

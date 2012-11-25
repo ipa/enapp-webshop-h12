@@ -10,6 +10,9 @@ import ch.hslu.enapp.webshop.entity.entities.CustomerEntity;
 import ch.hslu.enapp.webshop.entity.entities.CustomergroupsEntity;
 import ch.hslu.enapp.webshop.entity.facade.CustomerFacadeLocal;
 import ch.hslu.enapp.webshop.entity.facade.CustomergroupsEntityFacadeLocal;
+import ch.hslu.enapp.webshop.lib.exceptions.AdministratorCannotBeRemovedException;
+import ch.hslu.enapp.webshop.lib.exceptions.BusinessException;
+import ch.hslu.enapp.webshop.lib.exceptions.CustomerRemoveFailedException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -86,6 +89,21 @@ public class CustomerDAO implements CustomerDAOLocal {
          group.setGroupname(GROUP_USERS);
          group.setUsername(ce.getUsername());
          this.cgf.edit(group);
+    }
+    
+    @Override
+    public void removeCustomer(Customer customer) throws BusinessException{
+        if(customer.getUsername().equals("admin")){
+            throw new AdministratorCannotBeRemovedException();
+        }
+        try{
+            CustomerEntity ce = this.cf.getCustomerById(customer.getId());
+            this.cf.remove(ce);
+        } catch(Exception ex){
+            Logger.getGlobal().log(Level.WARNING, "could not delete customer {0}{1}", 
+                    new Object[]{customer.getId(), ex.getMessage()});
+            throw new CustomerRemoveFailedException();
+        }
     }
     
     /** Just for UnitTests **/
