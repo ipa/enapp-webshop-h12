@@ -7,9 +7,13 @@ package ch.hslu.enapp.webshop.dataaccess;
 import ch.hslu.enapp.webshop.lib.dataaccess.Customer;
 import ch.hslu.enapp.webshop.lib.dataaccess.CustomerDAOLocal;
 import ch.hslu.enapp.webshop.entity.entities.CustomerEntity;
+import ch.hslu.enapp.webshop.entity.entities.CustomergroupsEntity;
 import ch.hslu.enapp.webshop.entity.facade.CustomerFacadeLocal;
+import ch.hslu.enapp.webshop.entity.facade.CustomergroupsEntityFacadeLocal;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -24,6 +28,10 @@ import org.modelmapper.ModelMapper;
 public class CustomerDAO implements CustomerDAOLocal {
     @Inject
     private CustomerFacadeLocal cf;
+    @Inject
+    private CustomergroupsEntityFacadeLocal cgf;
+    
+    private static final String GROUP_USERS =  "users";
     
     @Override
     public List<Customer> getCustomers() {
@@ -67,10 +75,17 @@ public class CustomerDAO implements CustomerDAOLocal {
     
     @Override
     public void saveCustomer(Customer customer) {
+         Logger.getGlobal().log(Level.INFO, "save customer {0}", customer.getUsername());
          ModelMapper mapper = new ModelMapper();
          CustomerEntity ce; // = this.cf.getCustomerById(customer.getId());
          ce = mapper.map(customer, CustomerEntity.class);
          this.cf.edit(ce);
+         
+         Logger.getGlobal().log(Level.INFO, "add customer {0} to group users", customer.getUsername());
+         CustomergroupsEntity group = new CustomergroupsEntity();
+         group.setGroupname(GROUP_USERS);
+         group.setUsername(ce.getUsername());
+         this.cgf.edit(group);
     }
     
     /** Just for UnitTests **/

@@ -25,4 +25,28 @@
     <welcome-file-list>
         <welcome-file>/index.xhtml</welcome-file>
     </welcome-file-list>
+    <security-constraint>
+        <display-name>administration</display-name>
+        <web-resource-collection>
+            <web-resource-name>secure</web-resource-name>
+            <description>only for admins</description>
+            <url-pattern>/secure/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>adminRole</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>enappwebshoprealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>adminRole</role-name>
+    </security-role>
 </web-app>

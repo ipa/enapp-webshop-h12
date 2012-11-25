@@ -23,8 +23,15 @@
                                 <li><a href="#{facesContext.externalContext.requestContextPath}/products.xhtml">Products</a></li>
                                 <li><a href="#{facesContext.externalContext.requestContextPath}/basket.xhtml">Basket <span class="badge">#{basket.numberOfProducts()}</span></a></li>
                                 <li><a href="#{facesContext.externalContext.requestContextPath}/secure/account.xhtml">Account</a></li>
-                                <li><a href="http://localhost:8080/enapp12-tapaoluc-web-admin/index.xhtml">Admin</a></li>
+                                <li><a href="#{facesContext.externalContext.requestContextPath}/createaccount.xhtml">Create Account</a></li>
+                                <li><a href="http://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}/enapp12-tapaoluc-web-admin/index.xhtml">Admin</a></li>
                             </ul>
+                            <c:if test="#{usersession.isLoggedIn()}" >
+                                <a href="#{facesContext.externalContext.requestContextPath}/secure/logout.xhtml" class="btn btn-danger pull-right">Logout</a>
+                            </c:if>
+                            <c:if test="#{usersession.isNotLoggedIn()}" >
+                                <a href="#{facesContext.externalContext.requestContextPath}/secure/account.xhtml" class="btn btn-success pull-right">Login</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>

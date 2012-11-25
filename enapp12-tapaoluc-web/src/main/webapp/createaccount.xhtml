@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <h2>Create new Account</h2>
+                <div class="hero-unit">
+                    <h:form class="form-horizontal">
+                        <div class="control-group">
+                            <h:outputLabel class="control-label" for="inputName">Name</h:outputLabel>
+                            <div class="controls">
+                                <h:inputText id="inputName" value="#{newcustomer.name}" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h:outputLabel class="control-label" for="inputEmail">Email</h:outputLabel>
+                            <div class="controls">
+                                <h:inputText id="inputEmail" value="#{newcustomer.email}" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h:outputLabel class="control-label" for="inputAdr">Address</h:outputLabel>
+                            <div class="controls">
+                                <h:inputTextarea id="inputAdr" value="#{newcustomer.address}" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h:outputLabel class="control-label" for="inputUsername">Username</h:outputLabel>
+                            <div class="controls">
+                                <h:inputText id="inputUsername" value="#{newcustomer.username}" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h:outputLabel class="control-label" for="inputPwd">Password</h:outputLabel>
+                            <div class="controls">
+                                <h:inputSecret id="inputPwd" value="#{newcustomer.pwd}" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <h:commandButton action="#{newcustomer.save()}" 
+                                             class="btn btn-primary" value="Create account" />
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -9,9 +9,12 @@
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
                 <div class="hero-unit">
-                    <h1>Welcome to ENAPP Webshop - Admin</h1>
-                    <p>lorem ipsum dolor...</p>
+                    <h1>Are you sure</h1>
+                    <h:form>
+                        <h:commandLink class="btn btn-danger" action="#{usersession.logout()}" value="Really log out" />
+                    </h:form>
                 </div>
+                
             </ui:define>
         </ui:composition>
     </h:body>

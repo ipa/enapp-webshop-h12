@@ -50,7 +50,7 @@ public class UserSession implements Serializable {
     public void logout() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.invalidateSession();
-        ec.redirect("./index.xhtml");
+        ec.redirect(ec.getRequestContextPath() + "/index.xhtml");
     }
 
     public boolean isLoggedIn() {

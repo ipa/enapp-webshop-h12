@@ -40,4 +40,10 @@ VALUES ('dude', 'users');
 INSERT INTO customergroups (username, groupname)
 VALUES ('donny', 'users');
 
+-- add an administator
+INSERT INTO customer(id,username, password,name,address,email)
+VALUES(3, 'admin','admin','Administrator','','admin@test.local');
+INSERT INTO customergroups (username, groupname)
+VALUES ('admin', 'admins');
+
 COMMIT

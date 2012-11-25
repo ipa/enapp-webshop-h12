@@ -19,11 +19,9 @@
                         <a class="brand" href="#">ENAPP Webshop - Iwan Paolucci</a>
                         <div class="nav-collapse collapse">
                             <ul class="nav"> 
-                                <li><a href="http://localhost:8080/enapp12-tapaoluc-web/index.xhtml">Home</a></li>
-                                <li><a href="http://localhost:8080/enapp12-tapaoluc-web/products.xhtml">Products</a></li>
-                                <li><a href="http://localhost:8080/enapp12-tapaoluc-web/basket.xhtml">Basket <span class="badge">N/A</span></a></li>
-                                <li><a href="http://localhost:8080/enapp12-tapaoluc-web/secure/account.xhtml">Account</a></li>
-                                <li><a href="#{facesContext.externalContext.requestContextPath}/index.xhtml">Admin</a></li>
+                                <li><a href="#{facesContext.externalContext.requestContextPath}/index.xhtml">Home</a></li>
+                                <li><a href="#{facesContext.externalContext.requestContextPath}/secure/index.xhtml">Customer Management</a></li>
+                                <li><a href="http://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}/enapp12-tapaoluc-web/index.xhtml">Webshop</a></li>
                             </ul>
                         </div>
                     </div>
